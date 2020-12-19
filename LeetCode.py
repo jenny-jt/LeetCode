@@ -29,6 +29,33 @@ class Solution:
                 result.append(True)
             else:
                 result.append(False)
-                
+
         return result
+
+##########455. Assign cookies ##########
+
+# Assume you are an awesome parent and want to give your children some cookies. 
+# But, you should give each child at most one cookie.
+
+# Each child i has a greed factor g[i], which is the minimum size of a cookie 
+# that the child will be content with; and each cookie j has a size s[j]. 
+# If s[j] >= g[i], we can assign the cookie j to the child i, and the child i will 
+# be content. Your goal is to maximize the number of your content children and output the maximum number.
+
+
+class Solution:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        """given list of child_content and list of cookie_size
+            return num of maximized content children"""
+
+        g.sort()
+        s.sort()
         
+        counter, i, j = 0, 0, 0
+        while j < len(g) and i < len(s):
+            if s[i] >= g[j]:
+                counter, i, j = counter+1, i+1, j+1
+            else:
+                i +=1
+
+        return counter

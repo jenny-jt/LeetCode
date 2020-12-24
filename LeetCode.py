@@ -59,3 +59,21 @@ class Solution:
                 i +=1
 
         return counter
+
+##########13. Roman to Integer ##########
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        """given roman numeral, return the integer version"""
+        result = 0
+        c_dict = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+        
+        for i in range(len(s) - 1):
+            if c_dict[s[i]] < c_dict[s[i+1]]:
+                result -= c_dict[s[i]]
+            else:
+                result += c_dict[s[i]]
+        # don't forget to convert and add last roman numeral
+        result += c_dict[s[len(s)-1]]
+                
+        return result
+

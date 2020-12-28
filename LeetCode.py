@@ -130,15 +130,15 @@ class MinStack:
         initialize your data structure here.
         """
         self.stack = []
-        
+
     def push(self, x: int) -> None:
         """ add item to end"""
         self.stack.append(x)
-        
+
     def pop(self) -> None:
         """remove item from end"""
         self.stack.pop()
-        
+
     def top(self) -> int:
         """return item at the end"""
         return self.stack[-1]
@@ -146,3 +146,19 @@ class MinStack:
     def getMin(self) -> int:
         """return minimum item"""
         return min(self.stack)
+
+
+##########206. Reverse Linked List ##########
+def reverseList(self, head: ListNode) -> ListNode:
+    """reverse a SLL"""
+    prev = None
+    curr = head
+
+    while curr != None:
+        temp = curr.next
+        curr.next = prev
+        prev = curr
+        curr = temp
+
+    return prev
+

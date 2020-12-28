@@ -108,7 +108,7 @@ def isValid(self, s: str) -> bool:
     """given string s, return True if valid, False if not"""
     d = {"(": ")", "[": "]", "{": "}"}
     stack = []
-    
+
     for parens in s:
         if parens in d:
             stack.append(parens)
@@ -117,8 +117,32 @@ def isValid(self, s: str) -> bool:
                 stack.pop()
             else:
                 return False
-    
+
     if stack:
         return False
     else:
         return True
+
+##########155. Min Stack ##########
+class MinStack:
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.stack = []
+        
+    def push(self, x: int) -> None:
+        """ add item to end"""
+        self.stack.append(x)
+        
+    def pop(self) -> None:
+        """remove item from end"""
+        self.stack.pop()
+        
+    def top(self) -> int:
+        """return item at the end"""
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        """return minimum item"""
+        return min(self.stack)

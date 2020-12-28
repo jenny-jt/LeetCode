@@ -61,19 +61,64 @@ class Solution:
         return counter
 
 ##########13. Roman to Integer ##########
-class Solution:
-    def romanToInt(self, s: str) -> int:
-        """given roman numeral, return the integer version"""
-        result = 0
-        c_dict = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
-        
-        for i in range(len(s) - 1):
-            if c_dict[s[i]] < c_dict[s[i+1]]:
-                result -= c_dict[s[i]]
-            else:
-                result += c_dict[s[i]]
-        # don't forget to convert and add last roman numeral
-        result += c_dict[s[len(s)-1]]
-                
-        return result
+# Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
+# Symbol       Value
+# I             1
+# V             5
+# X             10
+# L             50
+# C             100
+# D             500
+# M             1000
+# For example, 2 is written as II in Roman numeral, just two one's added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+
+# Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+# I can be placed before V (5) and X (10) to make 4 and 9. 
+# X can be placed before L (50) and C (100) to make 40 and 90. 
+# C can be placed before D (500) and M (1000) to make 400 and 900.
+# Given a roman numeral, convert it to an integer.
+
+
+def romanToInt(self, s: str) -> int:
+    """given roman numeral, return the integer version"""
+    result = 0
+    c_dict = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+
+    for i in range(len(s) - 1):
+        if c_dict[s[i]] < c_dict[s[i+1]]:
+            result -= c_dict[s[i]]
+        else:
+            result += c_dict[s[i]]
+    # don't forget to convert and add last roman numeral
+    result += c_dict[s[len(s)-1]]
+
+    return result
+
+# Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+# An input string is valid if:
+
+# Open brackets must be closed by the same type of brackets.
+# Open brackets must be closed in the correct order.
+ 
+##########20. Valid Parentheses ##########
+def isValid(self, s: str) -> bool:
+    """given string s, return True if valid, False if not"""
+    d = {"(": ")", "[": "]", "{": "}"}
+    stack = []
+    
+    for parens in s:
+        if parens in d:
+            stack.append(parens)
+        else:
+            if stack and parens == d[stack[-1]]:
+                stack.pop()
+            else:
+                return False
+    
+    if stack:
+        return False
+    else:
+        return True

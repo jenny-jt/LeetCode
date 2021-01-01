@@ -216,3 +216,4 @@ def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         l2.next = self.mergeTwoLists(l2.next, l1)
         print("l2", l2)
         return l2
+

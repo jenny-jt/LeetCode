@@ -217,3 +217,53 @@ def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         print("l2", l2)
         return l2
 
+
+########## 1137. N-th Tribonacci Number ##########
+# The Tribonacci sequence Tn is defined as follows: 
+# T0 = 0, T1 = 1, T2 = 1, and Tn+3 = Tn + Tn+1 + Tn+2 for n >= 0.
+# Given n, return the value of Tn.
+class Solution:
+    cache = {}
+    def tribonacci(self, n: int) -> int:
+        # base case T_0 = 0     
+        # base case T_1 = 1
+        # base case T_2 = 1
+#         T_3 = t2 + t1 + t0 = 1 + 1 + 0 = 2
+#         t(n) = t(n-1) + t(n-2) + t(n-3)
+
+        if n == 0:
+            return 0
+        elif n == 1:
+            return 1
+        elif n == 2:
+            return 1
+
+        if n not in self.cache:
+            self.cache[n] = self.tribonacci(n-1) + self.tribonacci(n-2) + self.tribonacci(n-3)
+        return self.cache[n]
+
+
+########## 104. Maximum Depth of Binary Tree ##########
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        """given root of binary tree, return int max depth """
+        return self.traverse(root)
+
+    def traverse(self, root):
+        # base case
+        if not root:
+            return 0
+
+        left_max = self.traverse(root.left)
+        right_max = self.traverse(root.right)
+        
+        # return larger of left and right
+        return max(left_max, right_max) + 1
+
+        

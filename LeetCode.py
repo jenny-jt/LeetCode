@@ -402,4 +402,32 @@ def maxDepth(self, root: 'Node') -> int:
 #     n_level = traverse(none, 1)
 #         depth = 1
 
-
+########## 965. Univalued Binary Tree  ##########
+    def isUnivalTree(self, root: TreeNode) -> bool:
+        """given root of tree, return True if univalued, False if not"""
+        # base case: not root, return True
+        if not root:
+            return True
+        # base case: only root, return True
+        if not root.left and not root.right:
+            return True
+        
+        def traverse(node):
+            # if node val not equal to root, return False
+            print("node val", node.val, "root val", root.val)
+            if node.val != root.val:
+                return False
+            # if leaf node and not false:
+            if not node.left and not node.right:
+                return True
+            # if only right child
+            if not node.left:
+                return traverse(node.right)
+            # if only left child
+            if not node.right:
+                return traverse(node.left)
+            # if both children
+            else:
+                return traverse(node.left) and traverse(node.right)
+            
+        return traverse(root)

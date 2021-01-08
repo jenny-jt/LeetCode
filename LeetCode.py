@@ -365,8 +365,9 @@ def searchBST(self, root: TreeNode, val: int) -> TreeNode:
                 return left
             else:
                 return traverse(node.right)
-    
+
     return traverse(root)
+
 
 ########## 559. Maximum Depth of N-ary Tree  ##########
 def maxDepth(self, root: 'Node') -> int:

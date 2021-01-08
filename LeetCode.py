@@ -267,3 +267,83 @@ class Solution:
 
         return traverse(root)
 
+
+########## 938. Range of BST ##########
+    def rangeSumBST(self, root: TreeNode, low: int, high: int) -> int:
+        """given root, return int sum of nodes with values between high and low"""
+        # BST: all L children are less than R children
+        # if root out of range, then children on L will be out of range, no need to keep checking
+        # base case: single node with value in range
+        res = []
+
+        def traverse(node):
+            if node:
+                # if val in range, add val
+                if low <= node.val <= high:
+                    res.append(node.val)
+                # if val greater than low, can explore L branch. otherwise stop
+                if node.val > low:
+                    traverse(node.left)
+                # if val less than high, can explorer R branch. otherwise stop
+                if node.val < high:
+                    traverse(node.right)
+            else:
+                res.append(0)
+
+        traverse(root)        
+        return sum(res)
+
+########## 617. Merge Two Binary Trees  ##########
+    def mergeTrees(self, t1: TreeNode, t2: TreeNode) -> TreeNode:
+        """given 2 binary trees, sum up overlapping nodes and copy non-overlapping nodes"""
+        # start at root of both trees, modify tree 1
+        # compare(if both not null, sum = new node.val)
+        # preorder/in order traversal and compare
+        # how set L and R nodes, how traverse new tree
+
+        # preorder(node):
+        #     node
+        #     preorder(node.left)
+        #     preorder(node.right)
+        if not t1:
+            return t2
+        if not t2:
+            return t1
+        # change t1 val to be sum of t1 and t2
+        t1.val += t2.val
+        t1.left = self.mergeTrees(t1.left, t2.left)
+        t1.right = self.mergeTrees(t1.right, t2.right)
+
+        # return root of modified
+        return t1
+
+
+########## 897. Increasing Order Search Tree  ##########
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        """given root of BST, return tree with min node on L with only R children"""
+        # in order traversal, save to q ideally
+        # return smallest node
+        # set each R child to next node
+
+        # inoorder(node):
+        #     node.left
+        #     node
+        #     node.right
+        q = []
+
+        def inorder(node):
+            if node:        
+                inorder(node.left)
+                q.append(node.val)
+                inorder(node.right)
+
+        inorder(root)
+        print(q)
+
+        curr = root_new = TreeNode(None)
+        for i in range(len(q)):
+            curr.right = TreeNode(q[i]) 
+            curr = curr.right
+
+        return root_new.right
+

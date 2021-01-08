@@ -374,7 +374,7 @@ def maxDepth(self, root: 'Node') -> int:
     # base case
     if not root:
         return 0
-    
+
     def traverse(node, depth):
         if not node.children:
             return depth
@@ -382,9 +382,9 @@ def maxDepth(self, root: 'Node') -> int:
         else:  
             n_depth = max([traverse(child, depth+1) for child in node.children])
             return n_depth
-        
+
     return traverse(root, 1)
-    
+
 # Example case #1 [1,null,3,2,4,null,5,6]
 #     node 1
 #     node.c = [3, 2, 4]

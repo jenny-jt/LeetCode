@@ -347,3 +347,58 @@ class Solution:
 
         return root_new.right
 
+########## 700. Search in Binary Search Tree  ##########
+def searchBST(self, root: TreeNode, val: int) -> TreeNode:
+    """given root of BST and value, return subtree with root of value
+        return null if no node with value
+    """
+    # DFS to use recursion
+    # base case: root node has val, return root node
+    def traverse(node):
+        if not node:
+            return None
+        if node:
+            if node.val == val:
+                return node
+            left = traverse(node.left)
+            if left:
+                return left
+            else:
+                return traverse(node.right)
+    
+    return traverse(root)
+
+########## 559. Maximum Depth of N-ary Tree  ##########
+def maxDepth(self, root: 'Node') -> int:
+    """given root of tree, return int max depth"""
+    # base case
+    if not root:
+        return 0
+    
+    def traverse(node, depth):
+        if not node.children:
+            return depth
+        # find max depth of traverse(each child node, depth + 1)
+        else:  
+            n_depth = max([traverse(child, depth+1) for child in node.children])
+            return n_depth
+        
+    return traverse(root, 1)
+    
+# Example case #1 [1,null,3,2,4,null,5,6]
+#     node 1
+#     node.c = [3, 2, 4]
+#     n_depth = max(traverse(3,2), traverse(2,2), traverse(4,2)) 
+#         traverse(3,2)             2               2
+#         node 3
+#         node.c = [5, 6]
+#         n_depth = max(traverse(5,3), traverse(6,3))
+#         traverse(5,3)         traverse(6,3)
+#           3                       3
+# Example case of [1]
+#     node 1
+#     node.c = []
+#     n_level = traverse(none, 1)
+#         depth = 1
+
+

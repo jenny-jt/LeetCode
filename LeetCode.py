@@ -253,17 +253,17 @@ class Solution:
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         """given root of binary tree, return int max depth """
-        return self.traverse(root)
 
-    def traverse(self, root):
-        # base case
-        if not root:
-            return 0
+        def traverse(node):
+            # base case
+            if not node:
+                return 0
+            # max depth of left nodes
+            l_max = traverse(node.left)
+            # max depth of right nodes
+            r_max = traverse(node.right)
+            # add one to account for depth from root
+            return max(l_max, r_max) + 1
 
-        left_max = self.traverse(root.left)
-        right_max = self.traverse(root.right)
-        
-        # return larger of left and right
-        return max(left_max, right_max) + 1
+        return traverse(root)
 
-        

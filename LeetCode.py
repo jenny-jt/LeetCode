@@ -411,7 +411,7 @@ def maxDepth(self, root: 'Node') -> int:
         # base case: only root, return True
         if not root.left and not root.right:
             return True
-        
+
         def traverse(node):
             # if node val not equal to root, return False
             print("node val", node.val, "root val", root.val)
@@ -429,5 +429,42 @@ def maxDepth(self, root: 'Node') -> int:
             # if both children
             else:
                 return traverse(node.left) and traverse(node.right)
-            
+
         return traverse(root)
+
+
+########## 669. Trim a Binary Search Tree  ##########
+    def trimBST(self, root: TreeNode, low: int, high: int) -> TreeNode:
+        """given root of BST, trim tree so all nodes in low-high, return root of edited tree"""
+        
+        def traverse(node):
+            # base case
+            if not node:
+                return
+            # if node is too low, check if right node in range
+            if node.val < low:
+                return traverse(node.right)
+            # if node is too high, check if left node in range
+            if node.val > high:
+                return traverse(node.left)
+            # if node in range
+            else:
+                # check if left subtree in range. if it is a leaf, it will return at next call
+                node.left = traverse(node.left)
+                # check if right subtree in range
+                node.right = traverse(node.right)
+                return node
+        
+        return traverse(root)
+        
+# root = [3,0,4,null,2,null,null,1], range = 1-3
+
+# traverse(3)
+# node.left = traverse(0)									node.right = traverse(4)				return 3
+# traverse(0)												traverse(4)							
+# traverse(2)												traverse(None)
+# node.left = traverse(1)  node.right = traverse(None) return 2	return
+# traverse(1)			  return
+# node.left = traverse(None)
+# node.right = traverse(None)
+# Return 1

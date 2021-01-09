@@ -482,4 +482,22 @@ def reverseString(self, s: List[str]) -> None:
         s[i], s[len(s)-1-i] = s[len(s)-1-i], s[i]
 
 
-########## 669. Trim a Binary Search Tree  ##########
+########## 136. Single Number  ##########
+def singleNumber(self, nums: List[int]) -> int:
+    """given array return int that is single"""
+    
+    d = Counter(nums)
+    
+    for key, value in d.items():
+        if d[key] == 1:
+            return key
+
+
+########## 387. First Unique Character in a String  ##########
+# if not first non-repeating char, return -1
+def firstUniqChar(self, s: str) -> int:
+    """given string, return index of first non-repeating char"""
+    for i in range(len(s)):
+        if s.count(s[i]) == 1:
+            return i
+    return -1

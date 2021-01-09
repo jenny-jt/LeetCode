@@ -468,3 +468,18 @@ def maxDepth(self, root: 'Node') -> int:
 # node.left = traverse(None)
 # node.right = traverse(None)
 # Return 1
+
+########## 344. Reverse String  ##########
+# reverse string in place, using no other data structure
+def reverseString(self, s: List[str]) -> None:
+    """
+    Do not return anything, modify s in-place instead.
+    """
+    # cannot initiate another data structure
+    # use the swap syntax in python
+
+    for i in range(len(s)//2):
+        s[i], s[len(s)-1-i] = s[len(s)-1-i], s[i]
+
+
+########## 669. Trim a Binary Search Tree  ##########

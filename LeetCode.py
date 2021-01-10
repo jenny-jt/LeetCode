@@ -250,22 +250,45 @@ class Solution:
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
-    def maxDepth(self, root: TreeNode) -> int:
-        """given root of binary tree, return int max depth """
+# first 
+def maxDepth(self, root: TreeNode) -> int:
+    """given root of binary tree, return int max depth """
 
-        def traverse(node):
-            # base case
-            if not node:
-                return 0
-            # max depth of left nodes
-            l_max = traverse(node.left)
-            # max depth of right nodes
-            r_max = traverse(node.right)
-            # add one to account for depth from root
-            return max(l_max, r_max) + 1
+    def traverse(node):
+        # base case
+        if not node:
+            return 0
+        # max depth of left nodes
+        l_max = traverse(node.left)
+        # max depth of right nodes
+        r_max = traverse(node.right)
+        # add one to account for depth from root
+        return max(l_max, r_max) + 1
 
-        return traverse(root)
+    return traverse(root)
+
+# second
+def maxDepth(self, root: TreeNode) -> int:
+    """given root of binary tree, return int max depth """
+    
+    def traverse(node, depth):
+        # base case
+        if not node:
+            return depth
+        # keep going L until hit leaf node
+        left = traverse(node.left, depth + 1)
+        # keep going R until hit leaf node
+        right = traverse(node.right, depth + 1)
+        return max(left, right)
+
+    return traverse(root, 0)
+
+# root = [3,9,20,null,null,15,7]
+# node = 3 
+# traverse(3) = max(L, R) = max(2,3)
+# left = traverse(9, 1) = max(2,2) = 2                         right = traverse(20, 1) = max(3,3) = 3
+# L = traverse(None,2)  R = traverse(None,2)      L= traverse(15,2) = max(3,3) = 3          R=traverse(7,2) = max(3,3) = 3 
+# 2                       2                       L/R = traverse(none,3)                    L/R = traverse(none,3)
 
 
 ########## 938. Range of BST ##########
@@ -501,3 +524,60 @@ def firstUniqChar(self, s: str) -> int:
         if s.count(s[i]) == 1:
             return i
     return -1
+
+
+########## 230. Kth Smallest Element in a BST  ##########
+def kthSmallest(self, root: TreeNode, k: int) -> int:
+    """given BST, return kth smallest element in it"""
+    # initialize list
+    # in order traversal to add nodes to list
+    # index into list (k-1)
+    l = []
+    
+    def inordert(node):
+        if node:
+            inordert(node.left)
+            l.append(node.val)
+            inordert(node.right)
+
+    inordert(root)
+    return l[k-1]
+
+
+######### 238. Product of Array Except Self ##############
+# need to optimize runtime
+def productExceptSelf(self, nums: List[int]) -> List[int]:
+    """given array of int > 1, return array of products for all indices except each index"""
+    
+    # for i in nums, pop off and save as a variable
+    # multiply nums and insert that into array
+    # insert back into nums and pop off next one
+    result = []
+    
+    for i in range(len(nums)):
+        temp = nums.pop(i)
+        product = reduce((lambda x, y: x * y), nums)
+        result.append(product)
+        nums.insert(i, temp)
+    
+    return result
+
+# using arrays to store left and right sided product
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        """given array of int > 1, return array of products for all indices except each index"""
+        L = [1]*len(nums)
+        R = [1]*len(nums)
+
+        for i in range(0, len(nums)):
+            if i == 0:
+                L[i] = 1 
+            else:
+                L[i] = L[i-1]*nums[i-1]
+            
+        R[len(nums)-1] = 1
+        for i in reversed(range(len(nums)-1)):
+            R[i] = R[i+1]*nums[i+1]
+        print(L, R)
+        result = [L[i]*R[i] for i in range(len(nums))]
+        
+        return result

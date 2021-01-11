@@ -581,3 +581,28 @@ def productExceptSelf(self, nums: List[int]) -> List[int]:
         result = [L[i]*R[i] for i in range(len(nums))]
         
         return result
+
+
+######### 507. Perfect Number ##############
+def checkPerfectNumber(self, num: int) -> bool:
+    """given int n, return true if n is a perfect number, otherwise false"""
+    
+    # num = 6
+    # 1, 2, 3 = 1 + 2 + 3 = 6; True
+    
+    # num = 496
+    # 1, 2, 248, 4, 124, 
+    
+    ans = set()
+
+    for digit in range(1, int(sqrt(num)) + 1):
+        # integer will equal float if not decimal value after it
+        if int(num/digit) == num/digit:
+            ans.add(digit)
+            ans.add(int(num/digit))  # float
+        
+    if sum(ans) - num == num:
+        return True
+    else:
+        return False
+    

@@ -605,4 +605,21 @@ def checkPerfectNumber(self, num: int) -> bool:
         return True
     else:
         return False
+
+
+######### 283. Move Zeroes ##############
+def moveZeroes(self, nums: List[int]) -> None:
+    """
+    Do not return anything, modify nums in-place instead.
+    """
     
+    for num in nums:
+        if num == 0:
+            nums.remove(num)
+            nums.append(num)
+            
+    return nums
+
+
+    
+        

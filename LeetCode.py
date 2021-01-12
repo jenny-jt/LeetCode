@@ -621,5 +621,27 @@ def moveZeroes(self, nums: List[int]) -> None:
     return nums
 
 
-    
+######### 830. Positions of Large Groups ##############
+def largeGroupPositions(self, s: str) -> List[List[int]]:
+    """given string s, return array of indices of large group"""
+    # 2 pointers, i and j
+    l = []
+    i = 0
+    for j in range(i+1, len(s)):
+        if j == len(s) - 1 or s[j] != s[j+1]:
+            if j-i+1 >= 3:
+                l.append([i,j])
+            i = j+1
+                
+    return l
         
+
+######### 242. Valid Anagram ##############
+def isAnagram(self, s: str, t: str) -> bool:
+    """given 2 strings s and t, return true if anagrams, else False"""
+    if Counter(s) == Counter(t):
+        return True
+    else:
+        return False
+    
+    

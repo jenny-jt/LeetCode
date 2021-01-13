@@ -646,6 +646,7 @@ def isAnagram(self, s: str, t: str) -> bool:
 
 
 ######### 125. Valid Palindrome ##############
+# splitting word in half and comparing to other half
 def isPalindrome(self, s: str) -> bool:
     """given string s, return True if palindrome, False if not"""
     punct = string.punctuation
@@ -663,7 +664,6 @@ def isPalindrome(self, s: str) -> bool:
     print(l)
         
     x = len(l)//2
-    # use a stack maybe
     # first half, reverse it and compare to second half
     rev_s = l[:x]
     print("rev", rev_s)
@@ -680,3 +680,25 @@ def isPalindrome(self, s: str) -> bool:
     else:
         return False
 
+# using 2 pointers
+def isPalindrome(self, s: str) -> bool:
+    """given string s, return True if palindrome, False if not"""
+    punct = string.punctuation
+    s = s.lower()
+    new_s = ''
+    
+    if len(s) == 0:
+        return True
+    else:
+        for char in s:
+            if char not in punct:
+                new_s += char
+    new_l = new_s.split()
+    l = ''.join(new_l)
+    
+    for i in range(len(l)//2):
+        j = len(l) - i - 1
+        if l[i] != l[j]:
+            return False
+    
+    return True

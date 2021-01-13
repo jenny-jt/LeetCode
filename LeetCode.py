@@ -643,5 +643,40 @@ def isAnagram(self, s: str, t: str) -> bool:
         return True
     else:
         return False
+
+
+######### 125. Valid Palindrome ##############
+def isPalindrome(self, s: str) -> bool:
+    """given string s, return True if palindrome, False if not"""
+    punct = string.punctuation
+    s = s.lower()
+    new_s = ''
     
+    if len(s) == 0:
+        return True
+    else:
+        for char in s:
+            if char not in punct:
+                new_s += char
+    new_l = new_s.split()
+    l = ''.join(new_l)
+    print(l)
+        
+    x = len(l)//2
+    # use a stack maybe
+    # first half, reverse it and compare to second half
+    rev_s = l[:x]
+    print("rev", rev_s)
     
+    if len(l) % 2 == 0:
+        sec_s = l[x:]
+    else:
+        sec_s = l[x + 1:]
+        
+    print("sec", sec_s)
+        
+    if rev_s[::-1] == sec_s:
+        return True
+    else:
+        return False
+

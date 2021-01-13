@@ -702,3 +702,63 @@ def isPalindrome(self, s: str) -> bool:
             return False
     
     return True
+
+
+######### 997. Find the Town Judge ##############
+def findJudge(self, N: int, trust: List[List[int]]) -> int:
+    """given trust, return label of town judge, else -1"""
+    # keep trust count
+    # town judge has trust count N-1
+    
+    # only one person in the town, return that person
+    if len(trust) == 0 and N == 1:
+        return 1
+    
+    tc = [0] * (N+1)
+    
+    for item in trust:
+        tc[item[0]] -= 1
+        tc[item[1]] += 1
+    
+    for count in tc:
+        if count == N-1:
+            return tc.index(count)
+    
+    return -1
+
+
+######### 200. Number of Islands ##############
+def numIslands(self, grid: List[List[str]]) -> int:
+    """given grid of land and water, return int number of islands"""
+    # island: top bottom left and right are surrounded by water
+    
+    count = 0
+    
+    def dfs(grid, row, col):
+        # stop points(zero, out of grid)
+        if row < 0 or col < 0:
+            return
+        if row > len(grid) -1 or col > len(grid[0]) -1:
+            return
+        if grid[row][col] == "0":
+            return
+        
+        # zero it out
+        grid[row][col] = "0"
+        
+        # call dfs (top, bottom, left, right)
+        dfs(grid, row-1,col)
+        dfs(grid, row+1, col)
+        dfs(grid, row, col-1)
+        dfs(grid, row, col+1)
+    
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if grid[row][col] == "1":
+                dfs(grid, row, col)
+                count += 1
+                
+    return count
+
+
+######### 997. Find the Town Judge ##############

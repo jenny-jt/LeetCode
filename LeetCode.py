@@ -873,3 +873,66 @@ def maxArea(self, height: List[int]) -> int:
             j += 1
     
     return area
+
+
+######### 21. Merge Two Sorted Lists ##############
+# iterative solution
+def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+    """ given 2 sorted LL, return new sorted list as a LL"""
+    
+    res = head = ListNode(0)
+    
+    while l1 and l2:
+        if l1.val < l2.val:
+            res.next = l1
+            l1 = l1.next
+        else:
+            res.next = l2
+            l2 = l2.next
+        res = res.next
+        
+    if l2:
+        res.next = l2
+        # append rest of l2
+    if l1:
+        res.next = l1
+        # append rest of l1
+    
+    return head.next
+
+# recursive
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        """ given 2 sorted LL, return new sorted list as a LL"""
+        
+        if not l1:
+            return l2
+        if not l2:
+            return l1
+        
+        if l1.val <= l2.val:
+            l1.next = self.mergeTwoLists(l1.next, l2)
+            return l1
+        else:
+            l2.next = self.mergeTwoLists(l1, l2.next)
+            return l2
+        
+#         l1  l2
+#         1   1
+#         2   1
+#         2   3
+#         4   3
+#         4   4
+#         none 4
+
+#         return l1 = 1
+#         l1.next = m(2,1) = 1
+#         l2.next = m(2,3) = 2
+#         l1.next = m(4,3) = 3
+#         l2.next = m(4,4) = 4
+#         l1.next = m(none,4) = 4
+
+
+######### ##############
+    
+        
+        

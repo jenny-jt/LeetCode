@@ -761,4 +761,35 @@ def numIslands(self, grid: List[List[str]]) -> int:
     return count
 
 
-######### 997. Find the Town Judge ##############
+######### 417. Pacific Atlantic Water Flow ##############
+def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
+    """given mxn matrix, return array of coordinates where pacific -> atlantic"""
+    if not matrix: 
+        return []
+    
+    def dfs(i,j,matrix,explored,prev):
+        m,n = len(matrix),len(matrix[0])
+        # if out of bounds or already seen
+        if i < 0 or i >= m or j < 0 or j >= n or (i,j) in explored:
+            return
+        # only add if water will flow to ocean (height must be greater than previous)
+        if matrix[i][j] < prev:
+            return
+        # add new, valid point to ocean
+        explored.add((i,j))
+        dfs(i-1,j,matrix,explored,matrix[i][j]) #up
+        dfs(i+1,j,matrix,explored,matrix[i][j]) #down
+        dfs(i,j-1,matrix,explored,matrix[i][j]) #left
+        dfs(i,j+1,matrix,explored,matrix[i][j]) #right      
+    
+    pacific,atlantic = set(),set()
+    m,n = len(matrix),len(matrix[0])
+    for i in range(n):
+        dfs(0,i,matrix,pacific,-1)
+        dfs(m-1,i,matrix,atlantic,-1)
+    for i in range(m):
+        dfs(i,0,matrix,pacific,-1)
+        dfs(i,n-1,matrix,atlantic,-1)
+    
+    # return intersection of both oceans
+    return list(pacific&atlantic)

@@ -793,3 +793,23 @@ def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
     
     # return intersection of both oceans
     return list(pacific&atlantic)
+
+
+######### 141. Linked List Cycle ##############
+def hasCycle(self, head: ListNode) -> bool:
+    """given LL, return True if cycle present, otherwise False"""
+    
+    if not head:
+        return False
+    
+    curr2 = head
+    curr1 = head.next
+    
+    while curr1 != curr2:
+        # if either are none, have reached end of list
+        if not curr1 or not curr1.next:
+            return False
+        curr1 = curr1.next.next
+        curr2 = curr2.next
+
+    return True

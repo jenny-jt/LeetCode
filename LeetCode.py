@@ -813,3 +813,19 @@ def hasCycle(self, head: ListNode) -> bool:
         curr2 = curr2.next
 
     return True
+
+
+######### 141. Linked List Cycle ##############
+def reverseList(self, head: ListNode) -> ListNode:
+    """reverse a SLL"""
+    prev = None
+    curr = head
+    
+    while curr:
+        temp = curr.next
+        curr.next = prev
+        prev = curr
+        curr = temp
+    
+    return prev
+            

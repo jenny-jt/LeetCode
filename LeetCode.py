@@ -828,4 +828,48 @@ def reverseList(self, head: ListNode) -> ListNode:
         curr = temp
     
     return prev
-            
+
+
+######### 11. Container With Most Water ##############
+# brute force, need to optimize
+def maxArea(self, height: List[int]) -> int:
+    """given array of ints, return max value of area of ints"""
+    # brute force: calculate all areas and return max
+    # width = i2 - i1
+    # height = min(num1, num2)
+    # area = height * width
+    
+    i, area = 0, 0
+    
+    while i < len(height) -1:
+        for j in range(len(height)):
+            h = min(height[i], height[j])
+            w = abs(j - i)
+            area = max(area, h*w)
+        i += 1
+    
+    return area
+
+# 2 pointers
+def maxArea(self, height: List[int]) -> int:
+    """given array of ints, return max value of area of ints"""
+    # 2 pointers, at opposite ends of array
+    # advance pointer with shorter height
+    # width = j - i
+    # height = min(num1, num2)
+    # area = height * width
+    
+    i = len(height) -1
+    area, j = 0, 0
+    
+    while i > 0 and j < len(height):
+        h = min(height[i], height[j])
+        w = abs(j - i)
+        area = max(area, h*w)
+        
+        if height[i] <= height[j]:
+            i -= 1
+        else:
+            j += 1
+    
+    return area

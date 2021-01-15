@@ -932,7 +932,45 @@ def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
 #         l1.next = m(none,4) = 4
 
 
-######### ##############
+######### 739. Daily Temperatures ##############
+# brute force, need to optimize
+def dailyTemperatures(self, T: List[int]) -> List[int]:
+    """given array of int, return array of int of days until warmer, othersiwe 0"""
+    # brute force, iterate through i and rest of list
+    # return i and j of max(listj-listi) if >0, otherwise return 0
+    res = []
     
+    for i in range(len(T)):
+        # set max_T to 0 for each comparison
+        max_T = 0
+        for j in range(i+1,len(T)):
+            print("i", i, "j", j)
+            if T[j] - T[i] > max_T:
+                max_T = j - i
+            # once hit any hotter temp, break out of loop and go to next i
+            if max_T > 0:
+                break
+        res.append(max_T)
+        
+    return res
+
+# using stack
+def dailyTemperatures(self, T: List[int]) -> List[int]:
+    """given array of int, return array of int of days until warmer, otherwise 0"""
+    stack = []
+    res = [0] * len(T)
+    
+    # using stack, push indices of higher temps on, from the back
+    for i in range(len(T)-1, -1, -1):
+        while stack and T[i] >= T[stack[-1]]:
+            stack.pop()
+        if stack:
+            res[i] = stack[-1] - i
+        stack.append(i)
+    
+    return res
+                
+
+
         
         

@@ -1005,4 +1005,21 @@ def twoSum(self, nums: List[int], target: int) -> List[int]:
             d[target - nums[i]] = i
 
 
+######### 49. Group Anagrams ##############
+def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    """given array of strings, return array of array of strings, clustered by anagram"""
+    
+    # anagrams have same sorted string
+    
+    d = defaultdict(list)
+
+    # generate dict with key word and value counter 
+    for word in strs:
+        s_str = ''.join(sorted(word))
+        d[s_str].append(word)
+    
+    res = list(d.values())
+    
+    return res
+
         

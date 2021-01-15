@@ -971,6 +971,38 @@ def dailyTemperatures(self, T: List[int]) -> List[int]:
     return res
                 
 
+######### 1. Two Sum ##############
+# brute force
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    """given array of int and target int, return indices of 2 int that sum up to target"""
+    # brute force: find sum for each pair, if num is smaller than target
+    # use 2 pointers
+    
+    # if num < target, find if num-target in array and return that index
+    
+    for i in range(len(nums)):
+        other_num = target - nums[i]
+    
+        if other_num in nums:
+            j = nums.index(other_num)
+            if j != i:
+                return [i, j]
 
-        
+# hash table
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    """given array of int and target int, return indices of 2 int that sum up to target"""
+    # hash table
+    
+    d = {}
+    
+    for i in range(len(nums)):
+        # checks if num in hash_table keys
+        if nums[i] in d:
+            # if yes, return the index of other_num, i
+            return([d[nums[i]], i])
+        else:
+            # set key of other_num to value of index
+            d[target - nums[i]] = i
+
+
         

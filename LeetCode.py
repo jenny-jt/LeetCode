@@ -1063,4 +1063,33 @@ def orangesRotting(self, grid: List[List[int]]) -> int:
     
     return minute
 
+
+
+######### 73. Set Matrix Zeroes ##############
+def setZeroes(self, matrix: List[List[int]]) -> None:
+    """
+    Do not return anything, modify matrix in-place instead.
+    """
+    q = []
+    m = len(matrix)
+    n = len(matrix[0])
     
+    def helper(matrix, row, col):
+        # process cells
+        # set row and column to 0
+        for r in range(m):
+            if matrix[r][col] != 0:
+                matrix[r][col] = 0
+        for c in range(n):
+            if matrix[row][c] != 0:
+                matrix[row][c] = 0
+        
+    # walk through matrix
+    for row in range(m):
+        for col in range(n):
+            if matrix[row][col] == 0: 
+                q.append((row, col))
+    
+    while q:
+        row, col = q.pop()
+        helper(matrix, row, col)

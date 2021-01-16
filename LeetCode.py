@@ -1022,4 +1022,45 @@ def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
     
     return res
 
+
+######### 994. Rotting Oranges ##############
+def orangesRotting(self, grid: List[List[int]]) -> int:
+    """given m x n matrix, return int minutes until no cell has a fresh orange, otherwise -1"""
+    
+    # 0: empty cell
+    # 1: fresh orange
+    # 2: rotten orange
+    # every min, adjacent fresh orange becomes rotten
+    # how check if any oranges are unreached
+    # bfs to find minutes
+    
+    fresh, minute = 0, 0
+    q = []
         
+    # find count of fresh oranges and add rotten with coordinates to q
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):       
+            # count fresh oranges
+            if grid[row][col] == 1:
+                fresh += 1
+            # find location of rotten ones and append them to q
+            if grid[row][col] == 2:
+                q.append((row,col, minute))
+                
+    while q:
+        row, col, minute = q.pop(0)
+        
+        if grid[row][col] == 2:
+            for r,c in [(row, col+1), (row-1,col), (row,col-1), (row+1,col)]:
+                if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] == 1:
+                    grid[r][c] = 2
+                    fresh -= 1
+                    q.append((r,c, minute + 1))
+
+    # if leftover fresh oranges:
+    if fresh:
+        return -1
+    
+    return minute
+
+    

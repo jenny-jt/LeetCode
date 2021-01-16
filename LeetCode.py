@@ -1147,3 +1147,35 @@ def empty(self) -> bool:
     Returns whether the queue is empty.
     """
     return len(self.stack1) == 0
+
+
+######### 415. Add Strings ##############
+def addStrings(self, num1: str, num2: str) -> str:
+    """given 2 nums as strings, return sum"""
+    res = []
+    extra = 0
+    
+    # find length of strings
+    l1 = len(num1)
+    l2 = len(num2)
+    
+    # make both strings the same length
+    if l1 < l2:
+        num1 = num1.zfill(l2)
+    if l1 > l2:
+        num2 = num2.zfill(l1)
+    
+    # make list of tuples of digits from l1 and l2
+    char_list = list(zip(num1, num2))
+    print(char_list)
+    
+    for item in char_list[::-1]:
+        digit1, digit2 = item
+        sum_ = int(digit1) + int(digit2) + extra
+        extra = sum_ // 10
+        res.append(str(sum_ % 10))
+    
+    if extra:
+        res.append(str(extra))
+        
+    return ''.join(res[::-1])

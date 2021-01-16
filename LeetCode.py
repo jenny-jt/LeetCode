@@ -1179,3 +1179,19 @@ def addStrings(self, num1: str, num2: str) -> str:
         res.append(str(extra))
         
     return ''.join(res[::-1])
+
+
+######### 78. Subsets ##############
+def subsets(self, nums: List[int]) -> List[List[int]]:
+    """given array of int, return set of all possible subsets"""
+
+    output = [[]]
+    
+    for num in nums:
+        # [] + [1] = [1] so each time a num is added, output will have single num with combos
+        output += [item + [num] for item in output]
+        print(output)
+        
+    return output
+        
+ç

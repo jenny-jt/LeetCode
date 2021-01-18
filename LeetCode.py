@@ -1196,8 +1196,10 @@ def subsets(self, nums: List[int]) -> List[List[int]]:
         
 
 ######### 62. Unique Paths ##############
+
+# recursion
 cache = {}
-    
+
 def uniquePaths(self, m: int, n: int) -> int:
 
     if m == 1 or n == 1:
@@ -1210,4 +1212,39 @@ def uniquePaths(self, m: int, n: int) -> int:
         
     return cache[(m,n)]
 
+# 3,3
+# cache[3,3] = self(2,3) + self(3,2) = 3 + 3 = 6
+# cache[3,2] = self(3,1) + self(2,2) = 1 + 2 = 3
+# cache[3,1] = 1
 
+# cache[2,2] = self(1,2) + self(2,1) = 1 + 1 = 2
+# cache[1,2] = 1
+# cache[2,1] = 1
+
+# cache[2,3] = self(1,3) + self(2,2) = 1 + 2 = 3
+# cache[1,3] = 1
+
+# cache[2,2] = self(1,2) + self(2,1) = 1 + 1 = 2
+# cache[1,2] = 1
+# cache[2,1] = 1
+
+# 1 2 3
+# 2 x x
+# 3 x x
+
+# dynamic programming
+def uniquePaths(self, m: int, n: int) -> int:
+    """dp solution"""
+    
+    # initialize matrix to values of 1, cover the borders with only 1 possible path
+    res = [[1] * n for i in range(m)]
+
+    # pass through matrix and fill in values inside borders
+    for r in range(1,m):
+        for c in range(1,n):
+            res[r][c] = res[r-1][c] + res[r][c-1]
+
+    # return last row and last column
+    return res[m-1][n-1]
+
+#########  ##############

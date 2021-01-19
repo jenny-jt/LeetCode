@@ -1252,9 +1252,13 @@ def uniquePaths(self, m: int, n: int) -> int:
 def maxSubArray(self, nums: List[int]) -> int:
     """given array of int, return sum of contiguous subarray which has the largest sum"""
     
+    # initialize sums array to store max sum for each index of nums
     sums = [0] * len(nums)
     
+    # loop through nums
     for i in range(len(nums)):
+        # sums for that index is either num or num+prev sum
         sums[i] = max(sums[i-1]+nums[i], nums[i])
     
+    # return max of sums array
     return max(sums)

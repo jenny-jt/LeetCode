@@ -1247,6 +1247,7 @@ def uniquePaths(self, m: int, n: int) -> int:
     # return last row and last column
     return res[m-1][n-1]
 
+
 ######### 53. Maximum Subarray ##############
 
 def maxSubArray(self, nums: List[int]) -> int:
@@ -1262,3 +1263,93 @@ def maxSubArray(self, nums: List[int]) -> int:
     
     # return max of sums array
     return max(sums)
+
+
+######### 300. Longest Increasing Subsequence ##############
+# dp
+def lengthOfLIS(self, nums: List[int]) -> int:
+    """given array of int, return int len of longest increasing subsequence"""
+    N = len(nums)
+    dp = [1] * N
+    
+    for i in range(N):
+        # for all nums up to i, compare if i can be appended to j
+        for j in range(i):
+            # can be appended if nums[i] > nums[j]
+            if nums[i] > nums[j]:
+                # max of either 1 (i itself) or length at j + 1 (because i appended)
+                dp[i] = max(dp[i], dp[j] + 1)
+
+    return max(dp)
+
+# recursion
+
+def lengthOfLIS(self, nums: List[int]) -> int:
+    """given array of int, return int len of longest increasing subsequence"""
+
+    cache = {}
+    
+    def dfs(nums, i, prev):
+        # base case (covers empty nums, nums of one element)
+        if i == len(nums):
+            return 0
+
+        # if this num is greater than prev num, choose greater of 1+length @ prev, or length @ curr
+        if nums[i] > prev:
+            return max(dfs(nums, i+1, prev), 1 + dfs(nums, i+1, nums[i]))
+        # if not, then return length @ prev
+        return dfs(nums, i+1, prev)
+    
+    return dfs(nums, 0, float('-inf'))
+
+    # [0,1,0]
+    # len = 3
+    # i   prev    nums[i]    
+    # 0   -inf    0       max(dfs(1,-inf), 1+dfs(1,0)) = max(1,2) = 2
+    # 1   -inf    1       max(dfs(2,-inf), 1+dfs(2,1)) = max(0,1) = 1
+    # 1   0       1       max(dfs(2,0), 1+dfs(2,1)) = max(0,1) = 1
+    # 2   0       0       dfs(3,0) = 0
+    # 2   1       0       dfs(3,0) = 0
+    # 2   -ind    0       dfs(3,0) = 0
+    # 3   0       3 == 3  return 0
+
+
+######### 1502. Can Make Arithmetic Progression From Sequence ##############
+def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
+    """given array of numbers, return boolean True if array can be a progression, otherwise False"""
+    
+    # sort array
+    # small amount of work: diff between consecutive nums
+    # if diff not equal to previous diff, return False
+
+    diff_set = set()
+    
+    array = sorted(arr)
+    
+    for i in range(len(array)-1):
+        diff = array[i+1] - array[i]
+        diff_set.add(diff)
+    
+    if len(diff_set) != 1:
+        return False
+    
+    return True
+    
+
+######### 322. Coin Change ##############
+def coinChange(self, coins: List[int], amount: int) -> int:
+    """given coins and total, return int fewest coins to make amt or -1 if not able to make amt"""
+    
+    dp = [amount+1] * (amount+1)
+    
+    dp[0] = 0
+    
+    for i in range(amount+1):
+        for j in range(len(coins)):
+            if coins[j] <= i:
+                dp[i] = min(dp[i], 1+dp[i-coins[j]])    
+    
+    if dp[i] < amount + 1:
+        return dp[i]
+    else:
+        return -1

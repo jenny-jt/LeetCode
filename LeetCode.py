@@ -1353,3 +1353,65 @@ def coinChange(self, coins: List[int], amount: int) -> int:
         return dp[i]
     else:
         return -1
+
+
+######### 146. LRU Cache ##############
+# iterative
+def removeDuplicates(self, nums: List[int]) -> int:
+    """given array of ints, remove duplicates,
+        return len(new_array) and array without duplicates"""
+
+    j = 1
+    for i in range(1,len(nums)):
+        if nums[i] != nums[i-1]:
+            nums[j] = nums[i]
+            j += 1
+    # del rest of nums from the back
+    nums = nums[:j]
+
+    return len(nums)
+
+    # nums = [0,0,1,1,1,2,2,3,3,4]
+
+    # I.  J. nums[I] nums[I-1]
+    # 1 1 0 0
+    # 2 1 1 0 nums[1] -> nums[2]
+    # [0,1,1,1,1,2,2,3,3,4]
+    # 3 2 1 1
+    # 4 2 1 1
+    # 5 2 2 1
+    # [0,1,2,1,1,2,2,3,3,4]
+    # 6 3 2 2 
+    # 7 3 3 2 
+    # [0,1,2,3,1,2,2,3,3,4]
+    # 8 4 3 3
+    # 9 4 4 3 
+    # [0,1,2,3,4,2,2,3,3,4]
+
+# recursive
+def removeDuplicates(self, nums: List[int]) -> int:
+    """given sorted array of ints, remove duplicates,
+        return len(new_array)"""
+
+    # base case
+    if not nums:
+        return 0
+    if len(nums) == 1:
+        return 1
+        
+    def dfs(nums, i):
+        if i == len(nums)-1:
+            return len(nums)
+        if nums[i] != nums[i+1]:
+            return dfs(nums, i+1)
+        nums.pop(i+1)
+        return dfs(nums, i)
+    
+    return dfs(nums, 0)
+
+
+######### 146. LRU Cache ##############
+
+
+
+

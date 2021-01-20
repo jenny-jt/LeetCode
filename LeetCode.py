@@ -201,7 +201,6 @@ def mergeTwoListsIter(self, l1: ListNode, l2: ListNode) -> ListNode:
 
 ###### recursive solution ######
 
-
 def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
     """ given 2 sorted LL, return new sorted list as a LL"""
     if not l1:
@@ -1410,8 +1409,63 @@ def removeDuplicates(self, nums: List[int]) -> int:
     return dfs(nums, 0)
 
 
-######### 146. LRU Cache ##############
+######### 207. Course Schedule ##############
+
+from collections import defaultdict
+
+def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    """given list of courses and list of prereq
+    return boolean True if can take all courses
+    >>> numCourses = 2, prerequisites = [[1,0]]
+    True
+    """
+    # cycle: return false
+    
+    if not prerequisites:
+        return True
+    
+    course_list = defaultdict(list)
+    indegrees = {n: 0 for n in range(numCourses)}
+    
+    # assemble dict of pre:[courses], and for each pre, increase course indegrees value
+    for course, pre in prerequisites:
+        course_list[pre].append(course)
+        indegrees[course] += 1
+        
+    # take classes that don't have prereqs
+    take = [course for course in indegrees if indegrees[course] == 0]
+    # print("take", take)
+    
+    # if no courses with indegree of 0, can't take any classes
+    if not take:
+        return False
+    
+    # initialize set to keep track of taken courses
+    complete = set()
+    
+    while take:
+        to_take = take.pop()
+        complete.add(to_take)
+        
+        if to_take in course_list:
+            for course in course_list[to_take]:
+                indegrees[course] -= 1
+                if indegrees[course] == 0:
+                    take.append(course)
+                    
+    if len(complete) == numCourses:               
+        return True
 
 
 
+
+
+if name == "main":
+    import doctest
+
+    print()
+    result = doctest.testmod()
+    if not result.failed:
+        print("ALL TESTS PASSED!")
+    print()
 

@@ -1413,10 +1413,10 @@ def removeDuplicates(self, nums: List[int]) -> int:
 
 from collections import defaultdict
 
-def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+def canFinish(numCourses, prerequisites):
     """given list of courses and list of prereq
     return boolean True if can take all courses
-    >>> numCourses = 2, prerequisites = [[1,0]]
+    >>> canFinish(2, [[1,0]])
     True
     """
     # cycle: return false
@@ -1457,15 +1457,52 @@ def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         return True
 
 
+######### 207. Course Schedule 2 ##############
+from collections import defaultdict
 
+def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
 
+    if not prerequisites:
+        return [n for n in range(numCourses)]
 
-if name == "main":
-    import doctest
+    course_list = defaultdict(list)
+    indegrees = {n: 0 for n in range(numCourses)}
 
-    print()
-    result = doctest.testmod()
-    if not result.failed:
-        print("ALL TESTS PASSED!")
-    print()
+    # assemble dict of pre:[courses], and for each pre, increase course indegrees value
+    for course, pre in prerequisites:
+        course_list[pre].append(course)
+        indegrees[course] += 1
+
+    # take classes that don't have prereqs
+    take = [course for course in indegrees if indegrees[course] == 0]
+    # print("take", take)
+    
+    # initialize set to keep track of taken courses
+    complete = []
+
+    while take:
+        
+        to_take = take.pop()
+        complete.append(to_take)
+        # print("complete", complete)
+
+        if to_take in course_list:
+            for course in course_list[to_take]:
+                indegrees[course] -= 1
+                if indegrees[course] == 0:
+                    take.append(course)
+                    
+    if len(complete) == numCourses:
+        return complete
+    else:
+        return []
+
+# if name == "main":
+import doctest
+
+print()
+result = doctest.testmod()
+if not result.failed:
+    print("ALL TESTS PASSED!")
+print()
 

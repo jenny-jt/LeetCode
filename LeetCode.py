@@ -1498,9 +1498,6 @@ def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int
         return []
 
 
-
-
-
 ######### 15. 3Sum ##############
 # recursive, need to optimize
 def threeSum(self, nums: List[int]) -> List[List[int]]:
@@ -1625,6 +1622,41 @@ def threeSum(nums):
                 k -= 1
     
     return result
+
+######### 101. Symmetric Tree ##############
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def isSymmetric(self, root: TreeNode) -> bool:
+    
+    # binary tree: up to 2 children
+
+    if not root:
+        return True
+    
+    def dfs(n1, n2):
+        if not n1 and not n2:
+            return True
+        if not n1 or not n2:
+            return False
+        if n1.val == n2.val:
+            return dfs(n1.left, n2.right) and dfs(n1.right, n2.left)
+        else:
+            return False
+        
+        return True
+    
+    return dfs(root.left, root.right)
+        
+#                     1(n1)
+#         n1.left         ==          n1.right
+#         2 (n1)                       2 (n2)
+# n1.left     n1.right           n2.left       n2.right= n1.right.right 
+#     3 (n1)       4 (n2)         4 (n1)      3 (n2)
 
 
 

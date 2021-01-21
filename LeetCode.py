@@ -1497,6 +1497,138 @@ def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int
     else:
         return []
 
+
+
+
+
+######### 15. 3Sum ##############
+# recursive, need to optimize
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+    """given nums, return all unique triplets where a + b + c = 0"""
+    # check ab, increment c
+    # then keep a, increment b and c
+    # then increment a
+
+    result = []
+    nums.sort()
+    
+    if len(nums) < 3:
+        return result
+    
+    if len(nums) == 3 and (nums[0] + nums[1] + nums[2] == 0):
+        return [nums]
+    
+    def dfs(nums, a, b, c, result):
+        # if nums add up to 0, append to result
+        sum_ = nums[a] + nums[b] + nums[c]
+        
+        if sum_ == 0:
+            if sorted([nums[a], nums[b], nums[c]]) not in result:
+                result.append(sorted([nums[a], nums[b], nums[c]]))
+        if a == len(nums)-3:
+            return result
+        if b == len(nums)-2:
+            return dfs(nums, a+1, a+2, a+3, result)
+        if c == len(nums)-1:
+            return dfs(nums, a, b+1, b+2, result)
+
+        return dfs(nums, a, b, c+1, result)
+    
+    return dfs(nums,0,1,2, result)
+
+    # nums = [-1,0,1,2,-1,-4]
+    #          0 1 2 3  4  5
+    # len(nums) = 6
+    # a   b   c   nums[a] nums[b] nums[c] sum result
+    # 0   1   2   -1      0       1       0   [[-1,0,1]]
+    # 0   1   3   -1      0       2       1   [[-1,0,1]]
+    # 0   1   4   -1      0       -1      -2   [[-1,0,1]]
+    # 0   1   5   -1      0       -4       1   [[-1,0,1]]
+    # dfs(nums, a, b+1, b+2, result)
+    # 0   2   3   -1      1       2       2   [[-1,0,1]]
+    # 0   2   4   -1      1       -1      -1  [[-1,0,1]]
+    # 0   2   5   -1      1       -4      -4  [[-1,0,1]] 
+    # 0   3   4   -1      2       -1      0   [[-1,0,1], [-1,2,-1]]
+    # 0   3   5   -1      2       -4      -3   [[-1,0,1], [-1,2,-1]]
+    # 0   4   5   -1      -1      -4      -6   [[-1,0,1], [-1,2,-1]]
+    # dfs(nums, a+1, a+2, a+3, result)
+    # 1   2   3   0       1       2       3   [[-1,0,1], [-1,2,-1]]
+    # 1   2   4   0       1       -1      0    [[-1,0,1], [-1,2,-1], [1,-1,0]]
+    # 1   2   5   0       1       -4      -3    [[-1,0,1], [-1,2,-1], [1,-1,0]]
+    # dfs(nums, a, b+1, b+2, result)
+    # 1   3   4   0       2       -1      1    [[-1,0,1], [-1,2,-1], [1,-1,0]]
+    # 1   3   5   0       2       -4      -3    [[-1,0,1], [-1,2,-1], [1,-1,0]]
+    # dfs(nums, a, b+1, b+2, result)
+    # 1   4   5   0       -1      -4      -5      
+    # dfs(nums, a+1, a+2, a+3, result)
+    # 2   3   4   1       2       -1      2   
+    # 2   3   5   1       2       -4      -1
+    # dfs(nums, a, b+1, b+2, result)
+    # 2   4   5   1       -1      -4      -4
+    # dfs(nums, a+1, a+2, a+3, result)
+    # 3   4   5   2       -1      -4      -3
+    # result = [[-1,0,1], [-1,2,-1], [1,-1,0]]
+
+# iterative, nested for loops, need to optimize
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+    """given nums, return all unique triplets where a + b + c = 0"""
+    result = []
+    nums.sort()
+    
+    if len(nums) < 3:
+        return result
+    
+    if len(nums) == 3 and (nums[0] + nums[1] + nums[2] == 0):
+        return [nums]
+    
+    for i in range(len(nums)):
+        for j in range(i+1,len(nums)):
+            for k in range(j+1,len(nums)):
+                if nums[i]+nums[j]+nums[k] == 0:
+                    if sorted([nums[i],nums[j],nums[k]]) not in result:
+                        result.append(sorted([nums[i],nums[j],nums[k]]))
+    
+    return result
+
+# using pointers and sliding window
+def threeSum(nums):
+    """given nums, return all unique triplets where a + b + c = 0
+    >>> threeSum([-1,0,1,2,-1,-4])
+    [[-1,-1,2],[-1,0,1]]
+    >>> threeSum([0])
+    []
+    """
+
+    result = []
+    nums.sort()
+    
+    if len(nums) < 3:
+        return result
+    
+    if len(nums) == 3 and (nums[0] + nums[1] + nums[2] == 0):
+        return [nums]
+    
+    for i in range(len(nums)-2):
+        j = i+1
+        k = len(nums)-1
+        
+        while j < k:
+            sum_ = nums[i] + nums[j] + nums[k]
+            if sum_ == 0:
+                if [nums[i],nums[j],nums[k]] not in result:
+                    result.append([nums[i],nums[j],nums[k]])
+                j += 1
+                k -= 1
+            elif sum_ < 0:
+                j += 1 
+            elif sum_ > 0:
+                k -= 1
+    
+    return result
+
+
+
+
 # if name == "main":
 import doctest
 
@@ -1505,4 +1637,3 @@ result = doctest.testmod()
 if not result.failed:
     print("ALL TESTS PASSED!")
 print()
-

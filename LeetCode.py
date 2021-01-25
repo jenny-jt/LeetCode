@@ -1651,12 +1651,59 @@ def isSymmetric(self, root: TreeNode) -> bool:
         return True
     
     return dfs(root.left, root.right)
-        
+
 #                     1(n1)
 #         n1.left         ==          n1.right
 #         2 (n1)                       2 (n2)
 # n1.left     n1.right           n2.left       n2.right= n1.right.right 
 #     3 (n1)       4 (n2)         4 (n1)      3 (n2)
+
+
+######### 84. Largest Rectangle in Histogram ##############
+def largestRectangleArea(heights):
+    """
+    Given n non-negative integers representing the histogram's bar height 
+    where the width of each bar is 1, find the area of largest rectangle 
+    in the histogram.
+    >>> largestRectangleArea([2,1,5,6,2,3])
+    10
+    >>> largestRectangleArea([2,1,2])
+    3
+    """
+    if not heights or max(heights)==0: 
+        return 0
+    
+    if len(heights) == 1:
+        return heights[0]
+    
+    stack = []
+    area, i = 0, 0
+    
+    while i < len(heights):
+        if not stack or heights[stack[-1]] <= heights[i]:
+            stack.append(i)
+            i += 1
+        else:
+            top = stack.pop()
+            # shorter rectangle wiidth is i-stack[-1]; width for this rectangle is one smaller than that
+            # if not stack, then this is the shortest rectangle, use i
+            area = max(area, heights[top] * (i-stack[-1]-1 if stack else i))
+            
+    while stack:
+        top = stack.pop()
+        area = max(area, heights[top] * (i-stack[-1]-1 if stack else i))
+        
+    return area
+
+#     [2,1,2]
+#     i   stack   top stackafter  area
+#     0   []      -   [0]         -
+#     1   [0]     0   []          heights[0] * i = 2x1 = 2
+#     1   []      -   [1]         -
+#     2   [1]     -   [1,2]       -
+#     3
+#     3           2   [1]         heights[2] * i-stack[-1]-1 = 2x(3-1-1) = 2x1 = 2
+#     3           1   []          heights[1] * i = 1x3 = 3
 
 
 

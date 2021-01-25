@@ -298,10 +298,10 @@ def maxDepth(self, root: TreeNode) -> int:
         if not node:
             return count
         return max(dfs(node.left, count +1), dfs(node.right, count +1))
-        
+
     return dfs(root, count)
 
-        
+
 ########## 938. Range of BST ##########
     def rangeSumBST(self, root: TreeNode, low: int, high: int) -> int:
         """given root, return int sum of nodes with values between high and low"""

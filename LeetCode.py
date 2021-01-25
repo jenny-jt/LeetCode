@@ -249,7 +249,7 @@ class Solution:
 #         self.val = val
 #         self.left = left
 #         self.right = right
-# first 
+# recursive, first 
 def maxDepth(self, root: TreeNode) -> int:
     """given root of binary tree, return int max depth """
 
@@ -266,10 +266,10 @@ def maxDepth(self, root: TreeNode) -> int:
 
     return traverse(root)
 
-# second
+# recursive, second
 def maxDepth(self, root: TreeNode) -> int:
     """given root of binary tree, return int max depth """
-    
+
     def traverse(node, depth):
         # base case
         if not node:
@@ -289,7 +289,19 @@ def maxDepth(self, root: TreeNode) -> int:
 # L = traverse(None,2)  R = traverse(None,2)      L= traverse(15,2) = max(3,3) = 3          R=traverse(7,2) = max(3,3) = 3 
 # 2                       2                       L/R = traverse(none,3)                    L/R = traverse(none,3)
 
+# recursive, 3rd
+def maxDepth(self, root: TreeNode) -> int:
+    """given root of binary tree, return int max depth """
+    count = 0
 
+    def dfs(node, count):
+        if not node:
+            return count
+        return max(dfs(node.left, count +1), dfs(node.right, count +1))
+        
+    return dfs(root, count)
+
+        
 ########## 938. Range of BST ##########
     def rangeSumBST(self, root: TreeNode, low: int, high: int) -> int:
         """given root, return int sum of nodes with values between high and low"""
@@ -1631,8 +1643,8 @@ def threeSum(nums):
 #         self.left = left
 #         self.right = right
 
-def isSymmetric(self, root: TreeNode) -> bool:
-    
+# recursion, 1st time
+def isSymmetric(self, root: TreeNode) -> bool: 
     # binary tree: up to 2 children
 
     if not root:
@@ -1652,11 +1664,34 @@ def isSymmetric(self, root: TreeNode) -> bool:
     
     return dfs(root.left, root.right)
 
+
+# recursion, 2nd time
+def isSymmetric(self, root: TreeNode) -> bool:
+    if not root:
+        return True
+    
+    def dfs(n1, n2):
+        if not n1 and not n2:
+            return True
+        if not n1 or not n2:
+            return False
+        if n1.val != n2.val:
+            return False
+        else:
+            return dfs(n1.left, n2.right) and dfs(n1.right, n2.left)
+        
+        return True
+    
+    return dfs(root.left, root.right)
+
 #                     1(n1)
 #         n1.left         ==          n1.right
 #         2 (n1)                       2 (n2)
 # n1.left     n1.right           n2.left       n2.right= n1.right.right 
 #     3 (n1)       4 (n2)         4 (n1)      3 (n2)
+
+# iteration
+def isSymmetric(self, root: TreeNode) -> bool:
 
 
 ######### 84. Largest Rectangle in Histogram ##############

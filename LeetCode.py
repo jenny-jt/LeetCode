@@ -1785,7 +1785,20 @@ def lengthOfLongestSubstring(self, s: str) -> int:
 
     return length
 
-# using hash table
+
+######### 70. Climbing Stairs ##############
+def climbStairs(self, n: int) -> int:
+    """given staircase of n steps, return int ways can climb to top"""
+    dp = [0] * (n+1)
+
+    dp[0] = 1
+    dp[1] = 1
+    
+    for i in range(2,len(dp)):
+        dp[i] += dp[i-1] + dp[i-2]
+    
+    # print(dp)
+    return dp[n]
 
                 
 # if name == "main":

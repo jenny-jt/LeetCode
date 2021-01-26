@@ -1787,13 +1787,16 @@ def lengthOfLongestSubstring(self, s: str) -> int:
 
 
 ######### 70. Climbing Stairs ##############
+# dp
 def climbStairs(self, n: int) -> int:
     """given staircase of n steps, return int ways can climb to top"""
+    # time and space complexity O(n): single loop, and dp is n long
     dp = [0] * (n+1)
 
     dp[0] = 1
     dp[1] = 1
     
+    # can take one or two steps at a time so i-1 (1step) and i-2 (2steps)
     for i in range(2,len(dp)):
         dp[i] += dp[i-1] + dp[i-2]
     

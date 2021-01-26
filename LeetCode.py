@@ -1280,6 +1280,8 @@ def maxSubArray(self, nums: List[int]) -> int:
 # dp
 def lengthOfLIS(self, nums: List[int]) -> int:
     """given array of int, return int len of longest increasing subsequence"""
+    # time complexity: O(n^2), space complexity: O(n)
+
     N = len(nums)
     dp = [1] * N
     
@@ -1741,8 +1743,51 @@ def largestRectangleArea(heights):
 #     3           1   []          heights[1] * i = 1x3 = 3
 
 
+######### 226. Invert Binary Tree ##############
+def invertTree(self, root: TreeNode) -> TreeNode:
+    """invert binary tree"""
+    
+    if not root:
+        return None
+    
+    temp = root.left
+    root.left = root.right
+    root.right = temp
+    
+    self.invertTree(root.left)
+    self.invertTree(root.right)
+    
+    return root
+    
 
+######### 3. Longest Substring Without Repeating Characters ##############
+# using string
+def lengthOfLongestSubstring(self, s: str) -> int:
+    """
+    Given a string s, find the length of the longest substring without repeating characters.
+    """       
+    if not s:
+        return 0
+    
+    res = ''
+    length = 0
 
+    for i in range(len(s)):
+        if s[i] not in res:
+            res += s[i]
+        else:  
+            # find length of current substring, then modify it
+            length = max(length, len(res))
+            first_idx = res.index(s[i])
+            res = res[first_idx + 1:] + s[i]
+
+    length = max(length, len(res))
+
+    return length
+
+# using hash table
+
+                
 # if name == "main":
 import doctest
 

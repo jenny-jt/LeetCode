@@ -1934,7 +1934,50 @@ class RandomizedSet:
         return choice(list(self.RSet))
 
 
-#########  ##############
+######### 79. Word Search ##############
+def exist(board, word):
+    """Given an m x n board and a word, find if the word exists in the grid.
+        The word can be constructed from letters of sequentially adjacent cells, 
+        where "adjacent" cells are horizontally or vertically neighboring. 
+        The same letter cell may not be used more than once.
+        >>> exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCCED")
+        True
+        >>> exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "SEE")
+        True
+        >>> exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCB")
+        False
+    """
+    
+    def dfs(board, row, col, word, i): 
+        if i == len(word):
+            return True
+        if 0 > row  or row >= len(board) or 0 > col or col >= len(board[0]):
+            return False
+        if board[row][col] != word[i]:
+            return False
+
+        # save cell value, process cell
+        temp = board[row][col]
+        board[row][col] = 0
+            
+        result = dfs(board, row-1, col, word, i+1)\
+        or dfs(board, row+1, col, word, i+1)\
+        or dfs(board, row, col-1, word, i+1)\
+        or dfs(board, row, col+1, word, i+1)
+    
+        # restore cell value
+        board[row][col] = temp
+        
+        return result
+    
+    # traverse board
+    for row in range(len(board)):
+        for col in range(len(board[0])):
+            # look for first letter in word
+            if board[row][col] == word[0] and dfs(board, row, col, word, 0): 
+                return True
+    
+    return False
 
 
 

@@ -1803,7 +1803,141 @@ def climbStairs(self, n: int) -> int:
     # print(dp)
     return dp[n]
 
-                
+# recursion
+def climbStairs(self, n: int) -> int:
+    """given staircase of n steps, return int ways can climb to top"""
+    memo = {}
+    
+    def helper(n, memo):
+        if n == 0:
+            return 1
+        if n == 1:
+            return 1
+
+        if n not in memo:
+            memo[n] = helper(n-1, memo) + helper(n-2, memo)
+
+        return memo[n] 
+
+    return helper(n, memo)
+
+
+######### 121. Best Time to Buy and Sell Stock ##############
+def maxProfit(self, prices: List[int]) -> int:
+    """return max profit or 0 if no profit"""
+
+    # dp? maximum profit
+    l = len(prices)
+    dp = [0] * l # represent largest diff if buy on day i
+    
+    for i in range(1, l):
+        for j in range(i+1, l):
+            dp[i] = max(dp[i], prices[j]-prices[i])
+    
+    return max(dp)
+    
+    
+    # concise one pass
+    min_p = prices[0]
+    max_p = 0
+    
+    for i in range(1, len(prices)):
+        min_p = min(min_p, prices[i])
+        max_p = max(max_p, prices[i]-min_p)
+        
+    return max_p
+
+    # brute force, need to optimize
+    diff = 0
+    for i in range(len(prices)-1):
+        for j in range(i+1, len(prices)):
+            if prices[j]-prices[i] >=0:
+                diff = max(diff, prices[j]-prices[i])
+    
+    return diff
+
+
+######### 5. Longest Palindromic Substring ##############
+def longestPalindrome(s):
+    """given string s, return longest palindrome in s
+    >>> longestPalindrome("babad")
+    'bab'
+    >>> longestPalindrome("cbbd")
+    'bb'
+    """
+    # expand from middle
+    def helper(s, l, r):
+        # check to make sure l and r are in bounds and l-r contain a valid palindrome
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            # keep expanding l and r
+            l -= 1
+            r += 1
+        # when loop exited, l and r are wider than the valid palindrome
+        l += 1
+        r -= 1
+        # return length of longest palindrome and idx of start and finish (l and r)
+        length = r-l+1
+        return (length, l, r)
+        
+    length, l, r = 0, 0, 0
+    # for loop to iterate through each i, both odd and even versions
+    for i in range(len(s)):
+        # odd, start at same letter
+        odd_length, odd_l, odd_r = helper(s, i, i)
+        if odd_length > length:
+            length = odd_length
+            l = odd_l
+            r = odd_r
+        
+        # even, start at adjacent letters
+        even_length, even_l, even_r = helper(s, i, i+1)
+        if even_length > length:
+            length = even_length
+            l = even_l
+            r = even_r
+            
+    return s[l:r+1]
+
+
+######### 380. Insert Delete GetRandom O(1) ##############
+class RandomizedSet:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.RSet = set()
+
+    def insert(self, val: int) -> bool:
+        """
+        Inserts a value to the set. Returns true if the set did not already contain the specified element.
+        """
+        if val not in self.RSet:
+            self.RSet.add(val)
+            return True
+        return False
+
+    def remove(self, val: int) -> bool:
+        """
+        Removes a value from the set. Returns true if the set contained the specified element.
+        """
+        if val in self.RSet:
+            self.RSet.remove(val)
+            return True
+        return False
+
+    def getRandom(self) -> int:
+        """
+        Get a random element from the set.
+        """
+        from random import choice
+        return choice(list(self.RSet))
+
+
+######### 380. Insert Delete GetRandom O(1) ##############
+
+
+
 # if name == "main":
 import doctest
 

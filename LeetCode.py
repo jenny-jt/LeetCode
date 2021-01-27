@@ -1367,6 +1367,21 @@ def coinChange(self, coins: List[int], amount: int) -> int:
     else:
         return -1
 
+# recursion*** does not work
+def coinChange(coins, amount):
+    """given coins and total, return int fewest coins to make amt or -1 if not able to make amt"""
+    if amount == 0:
+        return 0
+
+    # loop through coins and subtract coin from amount, find min num of needed coins
+    for coin in coins:
+        min_c = coin
+        if amount - coin >= 0:
+            min_c = min(min_c, coinChange(amount-coin, coins) + 1)
+        print("min", min_c)
+    
+    return min_c
+ 
 
 ######### 146. LRU Cache ##############
 # iterative
@@ -2001,6 +2016,26 @@ def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
     seq_2 = dfs(root2, [])
 
     return seq_1 == seq_2
+
+
+######### 543. Diameter of Binary Tree ##############
+def diameterOfBinaryTree(self, root: TreeNode) -> int:
+    """return length of diameter of tree"""
+
+    # max diameter for each node is sum of L and R + node itself 
+    # diameter d is an attribute of the class diameterOfBinaryTree
+    self.d = 1
+    def depth(node):
+        if not node: return 0
+        L = depth(node.left)
+        R = depth(node.right)
+        self.d = max(self.d, L+R+1)
+        # print(self.d)
+        return max(L, R) + 1
+
+    depth(root)
+    return self.d - 1
+
 
 # if name == "main":
 import doctest

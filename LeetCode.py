@@ -1980,6 +1980,27 @@ def exist(board, word):
     return False
 
 
+######### 872. Leaf-Similar Trees ##############
+def leafSimilar(self, root1: TreeNode, root2: TreeNode) -> bool:
+    
+    # take in root of tree, output leaf sequence from L to R
+    def dfs(node, seq):
+        if not node:
+            return
+        
+        if not node.left and not node.right:
+            seq.append(node.val)
+        
+        dfs(node.left, seq)
+        dfs(node.right, seq)
+        
+        return seq
+
+    # get leaf sequence for T1 and T2    
+    seq_1 = dfs(root1, [])
+    seq_2 = dfs(root2, [])
+
+    return seq_1 == seq_2
 
 # if name == "main":
 import doctest

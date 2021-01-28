@@ -2037,7 +2037,62 @@ def diameterOfBinaryTree(self, root: TreeNode) -> int:
     return self.d - 1
 
 
-# if name == "main":
+# recursion using inner function
+def minDepth(self, root: TreeNode) -> int:
+    """given binary tree, return min depth"""
+    
+    res = []
+    
+    if not root:
+        return 0
+    
+    def dfs(node, depth):
+        if node:
+            if not node.right and not node.left:
+                # print(depth)
+                res.append(depth)
+            return dfs(node.left, depth +1), dfs(node.right, depth+1)
+    
+    dfs(root, 1)
+    
+    return min(res)
+
+# recursion, inner function, no appending
+def minDepth(self, root: TreeNode) -> int:
+    """given binary tree, return min depth"""
+    
+    if not root:
+        return 0
+    
+    def dfs(node, depth):
+        if not node:
+            return depth
+        if not node.right:
+            return dfs(node.left, depth+1)
+        if not node.left:
+            return dfs(node.right, depth+1)
+        else:
+            return min(dfs(node.right, depth+1), dfs(node.left, depth+1))
+        
+    depth = dfs(root, 0)
+    
+    return depth
+
+
+# recursion, no inner function
+def minDepth(self, root: TreeNode) -> int:
+    """given binary tree, return min depth"""
+    if not root:
+        return 0
+    if not root.right:
+        return 1+self.minDepth(root.left)
+    if not root.left:
+        return 1+self.minDepth(root.right)
+    else:
+        return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
+        
+
+# if __name__ == '__main__':
 import doctest
 
 print()

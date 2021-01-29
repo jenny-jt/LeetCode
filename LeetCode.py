@@ -2037,7 +2037,8 @@ def diameterOfBinaryTree(self, root: TreeNode) -> int:
     return self.d - 1
 
 
-# recursion using inner function
+######### 111. Minimum Depth of Binary Tree ##############
+# recursion using inner function (slowest)
 def minDepth(self, root: TreeNode) -> int:
     """given binary tree, return min depth"""
     
@@ -2057,7 +2058,7 @@ def minDepth(self, root: TreeNode) -> int:
     
     return min(res)
 
-# recursion, inner function, no appending
+# recursion, inner function, no appending (faster)
 def minDepth(self, root: TreeNode) -> int:
     """given binary tree, return min depth"""
     
@@ -2079,7 +2080,7 @@ def minDepth(self, root: TreeNode) -> int:
     return depth
 
 
-# recursion, no inner function
+# recursion, no inner function (fastest)
 def minDepth(self, root: TreeNode) -> int:
     """given binary tree, return min depth"""
     if not root:
@@ -2090,7 +2091,9 @@ def minDepth(self, root: TreeNode) -> int:
         return 1+self.minDepth(root.right)
     else:
         return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
-        
+
+
+#########  ##############
 
 # if __name__ == '__main__':
 import doctest

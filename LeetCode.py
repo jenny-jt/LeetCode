@@ -2245,8 +2245,47 @@ def isCousins(root, x, y):
     
     return depth_x == depth_y and parent_x != parent_y
 
-######### 404. Sum of Left Leaves ##############
 
+######### 404. Sum of Left Leaves ##############
+def spiralOrder(matrix) :
+    """print matrix in spiral order
+    >>> spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
+    [1,2,3,6,9,8,7,4,5]
+    >>> spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
+    [1,2,3,4,8,12,11,10,9,5,6,7]
+    """
+    res = []
+    if not matrix:
+        return res
+    
+    m = len(matrix)
+    n = len(matrix[0])
+    left, right = 0, n - 1
+    up, bottom = 0, m - 1
+    
+    direction = 0
+    
+    while left <= right and up <= bottom:
+        if direction % 4 == 0:
+            for i in range(left, right + 1):
+                res.append(matrix[up][i])
+            up += 1
+        elif direction % 4 == 1:
+            for i in range(up, bottom + 1):
+                res.append(matrix[i][right])
+            right -= 1
+        elif direction % 4 == 2:
+            for i in reversed(range(left, right + 1)):
+                res.append(matrix[bottom][i])
+            bottom -= 1
+        else:
+            for i in reversed(range(up, bottom + 1)):
+                res.append(matrix[i][left])
+            left += 1
+        direction += 1
+    
+    return res
+    
 
 # if __name__ == '__main__':
 import doctest

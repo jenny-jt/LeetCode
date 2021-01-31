@@ -2174,8 +2174,49 @@ def findMaxLength(self, nums: List[int]) -> int:
         
     return max_l
 
-#########  ##############
-                
+
+######### 404. Sum of Left Leaves ##############
+# recursion, self attribute
+def sumOfLeftLeaves(self, root: TreeNode) -> int:
+    # traverse tree, dfs
+    self.sum_ = 0
+    
+    def dfs(node, isLeft):
+        # base case
+        if not node:
+            return
+
+        # leaf node
+        if not node.left and not node.right and isLeft:
+            self.sum_ += node.val
+
+        dfs(node.left, True)
+        dfs(node.right, False)
+
+    dfs(root, False)
+    
+    return self.sum_
+
+# recursion, without additional attribute
+def sumOfLeftLeaves(self, root: TreeNode) -> int:
+    # traverse tree, dfs
+
+    def dfs(node, isLeft):
+        # base case
+        if not node:
+            return 0
+
+        # leaf node
+        if not node.left and not node.right and isLeft:
+            return node.val
+
+        return dfs(node.left, True) + dfs(node.right, False)
+
+    ans = dfs(root, False)
+    
+    return ans
+
+
 
 # if __name__ == '__main__':
 import doctest

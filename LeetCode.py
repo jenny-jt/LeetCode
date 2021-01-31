@@ -2108,8 +2108,7 @@ def minDepth(self, root: TreeNode) -> int:
         return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
 
 
-
-#########  ##############
+######### 525. Contiguous Array ##############
 # brute force, appending, need to optimize
 def findMaxLength(self, nums: List[int]) -> int:
     res = []

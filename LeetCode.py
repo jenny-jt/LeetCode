@@ -955,7 +955,7 @@ def dailyTemperatures(self, T: List[int]) -> List[int]:
         # set max_T to 0 for each comparison
         max_T = 0
         for j in range(i+1,len(T)):
-            print("i", i, "j", j)
+            # print("i", i, "j", j)
             if T[j] - T[i] > max_T:
                 max_T = j - i
             # once hit any hotter temp, break out of loop and go to next i
@@ -1773,6 +1773,21 @@ def invertTree(self, root: TreeNode) -> TreeNode:
     self.invertTree(root.right)
     
     return root
+
+# slightly more concise 
+def invert_tree(node):
+    """given binary tree, invert the tree"""
+    # start at root
+    if node:
+        temp = node.left
+        node.left = node.right
+        node.right = temp
+    
+    dfs(node.left)
+    dfs(node.right)
+    
+    return node
+
     
 
 ######### 3. Longest Substring Without Repeating Characters ##############
@@ -2086,14 +2101,82 @@ def minDepth(self, root: TreeNode) -> int:
     if not root:
         return 0
     if not root.right:
-        return 1+self.minDepth(root.left)
+        return self.minDepth(root.left) +1
     if not root.left:
-        return 1+self.minDepth(root.right)
+        return self.minDepth(root.right) +1
     else:
         return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
 
 
+
 #########  ##############
+# brute force, appending, need to optimize
+def findMaxLength(self, nums: List[int]) -> int:
+    res = []
+    if not nums:
+        return len(res)
+    count = 0
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            # print("subarray", nums[i:j+1])
+            for digit in nums[i:j+1]:
+                if digit == 0:
+                    count += 1
+                if digit == 1:
+                    count -= 1
+            if count == 0:
+                res.append(len(nums[i:j+1]))
+            count = 0
+    if res: 
+        return max(res)
+    else:
+        return 0
+
+# brute force, using max, need to optimize
+def findMaxLength(self, nums: List[int]) -> int:
+    
+    if not nums:
+        return 0
+    
+    max_l, count = 0, 0
+    
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            # print("subarray", nums[i:j+1])
+            for digit in nums[i:j+1]:
+                if digit == 0:
+                    count += 1
+                if digit == 1:
+                    count -= 1
+            if count == 0:
+                max_l = max(max_l, len(nums[i:j+1]))
+            count = 0
+            
+    return max_l
+
+# using hm
+def findMaxLength(self, nums: List[int]) -> int:
+    max_l, count, length = 0, 0, 0
+    # start it at -1 because index starts at 0
+    d = {0:-1}
+    for i in range(len(nums)):
+        if nums[i]==0:
+            count+=1
+        if nums[i]==1:
+            count-=1
+        # print("i", i, "count", count)
+        # if seen this count, then length = current pos - previous pos
+        if count in d:
+            length = i-d[count]
+        if count not in d:
+            d[count]=i            
+        max_l = max(max_l, length)
+        # print(d)
+        
+    return max_l
+
+#########  ##############
+                
 
 # if __name__ == '__main__':
 import doctest

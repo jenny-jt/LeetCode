@@ -2246,7 +2246,7 @@ def isCousins(root, x, y):
     return depth_x == depth_y and parent_x != parent_y
 
 
-######### 404. Sum of Left Leaves ##############
+######### 54. Spiral Matrix ##############
 def spiralOrder(matrix) :
     """print matrix in spiral order
     >>> spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
@@ -2286,6 +2286,22 @@ def spiralOrder(matrix) :
     
     return res
     
+
+######### 74. Search a 2D Matrix ##############
+# without binary search
+def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+    for row in matrix:
+        if len(row) == 0:
+            continue
+        # Checking wether the last element in the row is > or < target
+        if row[-1] >= target:
+            if target in row:
+                return True
+            return False
+
+
+
+######### 54. Spiral Matrix ##############
 
 # if __name__ == '__main__':
 import doctest

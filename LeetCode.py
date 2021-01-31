@@ -2217,6 +2217,36 @@ def sumOfLeftLeaves(self, root: TreeNode) -> int:
     return ans
 
 
+######### 993. Cousins in Binary Tree ##############
+# doctests don't work because lack node class
+def isCousins(root, x, y):
+    """given tree, return True if nodes with x and y values are cousins
+    >>> isCousins([1,2,3,null,4,null,5], 5, 4)
+    True
+    >>> isCousins([1,2,3,4], 3, 4)
+    False
+    """
+    # cousins: same depth, diff parents
+    # inner function return depth and parent as tuple
+    res = []
+    
+    def dfs(node, parent, depth):
+        if not node:
+            return
+        if node.val == x or node.val == y:
+            res.append((depth, parent))
+        dfs(node.left, node, depth+1)
+        dfs(node.right, node, depth+1)
+    
+    dfs(root, None, 0)
+    
+    depth_x, parent_x = res[0]
+    depth_y, parent_y = res[1]
+    
+    return depth_x == depth_y and parent_x != parent_y
+
+######### 404. Sum of Left Leaves ##############
+
 
 # if __name__ == '__main__':
 import doctest

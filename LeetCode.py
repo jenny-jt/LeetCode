@@ -2340,7 +2340,27 @@ def searchRow(self, row, target, l_row):
     return False
         
         
-        
+######### 268. Missing Number ##############        
+# set math
+def missingNumber(self, nums: List[int]) -> int:
+    # use set math
+    range_set = set([x for x in range(len(nums)+1)])
+    # print(range_set)
+    ans = range_set.difference(nums)
+    
+    return ans.pop()
+
+
+# using regular set, slower
+def missingNumber(self, nums: List[int]) -> int:
+    # use set
+    num_set = set(nums)
+    
+    n = len(nums) + 1
+    
+    for num in range(n):
+        if num not in num_set:
+            return num
 
 
 ######### 54. Spiral Matrix ##############

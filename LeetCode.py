@@ -2300,6 +2300,48 @@ def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
             return False
 
 
+# binary search, slower
+def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+    m, n = len(matrix), len(matrix[0])
+    
+    low, high = 0, m-1
+    
+    # searching for row
+    while low <= high:
+        mid = (low+high)//2
+        if matrix[mid][0] == target:
+            return True
+        elif matrix[mid][0] < target:
+            if matrix[mid][n-1] == target:
+                return True
+            if matrix[mid][n-1] > target:
+                # check if target is in row
+                return self.searchRow(matrix[mid], target, n)
+            low = mid+1
+        else:
+            high = mid-1
+        
+    return False
+
+
+# searching for target in row
+def searchRow(self, row, target, l_row):
+    low, high = 0, l_row-1
+    
+    while low <= high:
+        mid = (low+high)//2
+        if row[mid] > target:
+            high = mid-1
+        elif row[mid] < target:
+            low = mid+1
+        else:
+            return True
+    # if exit row and not found value, return False
+    return False
+        
+        
+        
+
 
 ######### 54. Spiral Matrix ##############
 

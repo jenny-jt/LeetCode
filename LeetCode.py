@@ -2363,7 +2363,47 @@ def missingNumber(self, nums: List[int]) -> int:
             return num
 
 
-######### 54. Spiral Matrix ##############
+######### ##############
+from collections import Counter
+import heapq as hq
+
+def topKFrequent(nums, k):
+        """Given a non-empty array of integers, return the k most frequent elements
+        >>> topKFrequent([1,1,1,2,2,3], 2)
+        [1, 2]
+        """
+        
+        if k == len(nums):
+            return nums
+        
+        counter = Counter(nums)
+        # print(counter)
+       
+        return hq.nlargest(k, counter.keys(), key=counter.get)
+
+
+######### 236. Lowest Common Ancestor of a Binary Tree ##############
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    target = [p,q]
+    def dfs(node, target):
+        if not node:
+            return
+        # if node is either p or q, will return node
+        if node in target:
+            return node
+        # otherwise, search to left and right of node
+        left = dfs(node.left, target)
+        right = dfs(node.right, target)
+        # p and q are in left and right branches, LCA is the node
+        if left and right:
+            return node
+        # if only L or R branch, will find first node that is p or q (child of itself)
+        return left or right
+    return dfs(root, target)
+
+######### 236. Lowest Common Ancestor of a Binary Tree ##############
+
+
 
 # if __name__ == '__main__':
 import doctest

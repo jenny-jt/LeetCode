@@ -2401,9 +2401,38 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
         return left or right
     return dfs(root, target)
 
-######### 236. Lowest Common Ancestor of a Binary Tree ##############
+######### 110. Balanced Binary Tree ##############
+
+def isBalanced(self, root: TreeNode) -> bool:
+    if not root:
+        return True
+    
+    is_bal = True
+    
+    def find_height(node, height, is_bal):
+        if not node: 
+            return is_bal, height
+        
+        is_bal, left = find_height(node.left, height+1, is_bal)
+        is_bal, right = find_height(node.right, height+1, is_bal)
+        
+        if is_bal:
+            if abs(left-right) > 1:
+                is_bal = False
+        # return max height
+        return is_bal, max(left, right)
+    
+    is_bal, height = find_height(root, 0, is_bal)
+    
+    return is_bal
 
 
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
 
 # if __name__ == '__main__':
 import doctest

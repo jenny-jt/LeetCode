@@ -2427,7 +2427,55 @@ def isBalanced(self, root: TreeNode) -> bool:
     return is_bal
 
 
-#########  ##############
+######### 208. Implement Trie (Prefix Tree) ##############
+# using dictionary
+class Trie:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = {'*':'*'}
+
+    def insert(self, word: str) -> None:
+        """
+        Inserts a word into the trie.
+        """
+        curr = self.root
+        
+        for char in word:
+            # print("curr", curr, "char", char)
+            if char not in curr:
+                curr[char] = {}
+            # move pointer down to that char's children
+            curr = curr[char]
+        # add in end symbol
+        curr['*'] = {}
+    
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the trie.
+        """
+        curr = self.root
+        
+        for char in word:
+            if char not in curr:
+                return False
+            curr = curr[char]
+        # if word has been inserted, there should be a *
+        return "*" in curr
+
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        """
+        curr = self.root
+        
+        for char in prefix:
+            if char not in curr:
+                return False
+            curr = curr[char]
+        return True
 #########  ##############
 #########  ##############
 #########  ##############

@@ -2429,6 +2429,7 @@ def isBalanced(self, root: TreeNode) -> bool:
 
 ######### 208. Implement Trie (Prefix Tree) ##############
 # using dictionary
+# https://www.youtube.com/watch?v=hjUJFjcrbR4
 class Trie:
 
     def __init__(self):
@@ -2476,7 +2477,55 @@ class Trie:
                 return False
             curr = curr[char]
         return True
-#########  ##############
+
+
+######### 985. Sum of Even Numbers After Queries ##############
+# brute force, need to optimize
+def sumEvenAfterQueries(self, A: List[int], queries: List[List[int]]) -> List[int]:
+    """given 2 lists, return list of int"""
+    answer = [0]*len(queries)
+    
+    # loop through queries
+    for i, item in enumerate(queries):
+        A[item[1]] += item[0]
+        even_sum = sum([el for el in A if el%2 == 0])
+        answer[i] += even_sum
+    
+    return answer
+
+# modifying sum
+def sumEvenAfterQueries(self, A: List[int], queries: List[List[int]]) -> List[int]:
+    """given 2 lists, return list of int"""
+    answer = [0]*len(queries)
+    prev_sum = sum([el for el in A if el%2 == 0])
+    
+    # loop through queries
+    for i, item in enumerate(queries):
+        # print("i", i, "prev sum", prev_sum)
+        old_A = A[item[1]]   
+        A[item[1]] += item[0]
+        new_A = A[item[1]]
+        # print("oldA", old_A, "new_A", new_A)
+        # if A[i] was odd and now odd, then sum = prev
+        # if A[i] was odd and now even, sum + newA[i]
+        # if A[i] was even and now even, sum + item[0]
+        # if A[i] was even and now odd, sum - oldA[i]
+        
+        if old_A %2 != 0:
+            if new_A %2 == 0:
+                sum_ = prev_sum + new_A
+            else:
+                sum_ = prev_sum
+        if old_A %2 == 0:
+            if new_A %2 == 0:
+                sum_ = prev_sum + item[0]
+            else:
+                sum_ = prev_sum - old_A
+
+        answer[i] += sum_
+        prev_sum = sum_
+        
+    return answer
 #########  ##############
 #########  ##############
 #########  ##############

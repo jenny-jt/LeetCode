@@ -2527,8 +2527,36 @@ def sumEvenAfterQueries(self, A: List[int], queries: List[List[int]]) -> List[in
         
     return answer
 
-#########  ##############
-#########  ##############
+######### 657. Robot Return to Origin ##############
+def judgeCircle(self, moves: str) -> bool:
+    """given moves of robot, return True if robot returns to start"""
+    
+    return moves.count("U") == moves.count("D") and moves.count("L") == moves.count("R")
+
+
+######### 961. N-Repeated Element in Size 2N Array ##############
+# brute force, runtime O(N)
+def repeatedNTimes(self, A: List[int]) -> int:
+    # find len of list
+    freq = len(A)/2
+    # find element that has freq of len/2
+    for el in A:
+        if A.count(el) == freq:
+            return el
+    # return element
+
+# not faster, uses Counter, runtime O(N)
+def repeatedNTimes(self, A: List[int]) -> int:
+    # make counter obj. return key of value of freq
+    freq = len(A)/2
+    
+    a = Counter(A)
+
+    for el, frequency in a.items():
+        if frequency == freq:
+            return el
+
+
 #########  ##############
 #########  ##############
 

@@ -2526,6 +2526,7 @@ def sumEvenAfterQueries(self, A: List[int], queries: List[List[int]]) -> List[in
         prev_sum = sum_
         
     return answer
+
 #########  ##############
 #########  ##############
 #########  ##############

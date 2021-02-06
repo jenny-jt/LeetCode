@@ -1791,7 +1791,7 @@ def invert_tree(node):
     
 
 ######### 3. Longest Substring Without Repeating Characters ##############
-# using string
+# using result string
 def lengthOfLongestSubstring(self, s: str) -> int:
     """
     Given a string s, find the length of the longest substring without repeating characters.
@@ -1814,6 +1814,33 @@ def lengthOfLongestSubstring(self, s: str) -> int:
     length = max(length, len(res))
 
     return length
+
+
+# using sliding window, faster runtime: O(n)
+def lengthOfLongestSubstring(self, s: str) -> int:
+    """
+    Given a string s, find the length of the longest substring without repeating characters.
+    """  
+    # initialize length at 0
+    length, start, end = 0, 0, 0
+    # create seen set, start/end pointers
+    seen = set()
+    # while loop (end < len(s)) and start <= end)
+    while end < len(s) and start <= end:
+        # if char not in seen, then add it and increment end pointer
+        if s[end] not in seen:
+            seen.add(s[end])
+            end += 1
+        # if char in seen, remove s[start] and add s[end]
+        else:
+            seen.remove(s[start])
+            start += 1
+        # length = max(length, end-start)
+        length = max(length, end-start)
+        # print(length)
+    # return length
+    return length
+        
 
 
 ######### 70. Climbing Stairs ##############
@@ -2605,8 +2632,41 @@ def repeatedNTimes(self, A: List[int]) -> int:
             return el
 
 
+######### 19. Remove Nth Node From End of List ##############
+def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+    """given head node and int n apart, return list with n node removed"""
+
+    # 2 pointers, n+1 apart to have slow stop right before node to be removed
+    if not head.next:
+        return
+    temp = ListNode(0)
+    temp.next = head
+    slow = fast = temp
+    for i in range(n+1):
+        fast = fast.next
+    
+    # advance both
+    while fast:
+        fast = fast.next
+        slow = slow.next
+    # when end reaches tail, slow should be right before node n
+    # set slow.next to slow.next.next
+    slow.next = slow.next.next
+    # return head
+    return temp.next
+        
+        
 #########  ##############
 #########  ##############
+#########  ##############
+
+#########  ##############
+#########  ##############
+#########  ##############
+
+#########  ##############
+#########  ##############
+
 
 # if __name__ == '__main__':
 import doctest

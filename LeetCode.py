@@ -149,6 +149,7 @@ class MinStack:
 
 
 ##########206. Reverse Linked List ##########
+# iteration
 def reverseList(self, head: ListNode) -> ListNode:
     """reverse a SLL"""
     prev = None
@@ -161,6 +162,22 @@ def reverseList(self, head: ListNode) -> ListNode:
         curr = temp
 
     return prev
+
+# recursion
+def reverseList(self, head: ListNode) -> ListNode:
+    """reverse a SLL"""
+    # base cases
+    if not head or not head.next:
+        return head
+    # make list smaller each time until reach a reversed list (base case)
+    rev_head = reverseList(head.next)
+    # append myself to the reversed list (grows as we go back up the stack)
+    head.next.next = head
+    # prevents cycle from forming
+    head.next = None
+    # keep track of the head of the reversed LL
+    return rev_head
+
 
 ########## 21. Merge Two Sorted Lists ##########
 # Definition for singly-linked list.

@@ -2426,6 +2426,54 @@ def isBalanced(self, root: TreeNode) -> bool:
     
     return is_bal
 
+# attempt 2
+def isBalanced(self, root: TreeNode) -> bool:
+    """return True if balanced, False if not"""
+    
+    # check height of L and R subtrees for each node: helper function to return height, 
+    # stop cases: reach leaf node, max height of L and R are different by more than 1
+    # can only return height in function, so use boolean to track if diff > 1
+    
+    if not root:
+        return True
+    
+    diff = True
+    
+    def find_height(node, height, diff):
+        if not node:
+            # print("leaf", diff, height)
+            return diff, height
+        diff, L = find_height(node.left, height+1, diff)
+        diff, R = find_height(node.right, height+1, diff)
+        if abs(L-R) > 1:
+            diff = False
+        # print("max", max(L, R))
+        return diff, max(L, R)
+
+    diff, height = find_height(root, 0, diff)
+    
+    return diff
+    
+    
+
+
+# [1,2,2,3,3,null,null,4,4]
+
+# leaf True 4
+# leaf True 4
+# max 4
+# leaf True 4
+# leaf True 4
+# max 4
+# max 4
+# leaf True 3
+# leaf True 3
+# max 3
+# max 4
+# leaf True 2
+# leaf True 2
+# max 2
+# max 4
 
 ######### 208. Implement Trie (Prefix Tree) ##############
 # using dictionary

@@ -148,7 +148,7 @@ class MinStack:
         return min(self.stack)
 
 
-##########206. Reverse Linked List ##########
+########## 206. Reverse Linked List ##########
 # iteration
 def reverseList(self, head: ListNode) -> ListNode:
     """reverse a SLL"""
@@ -162,6 +162,7 @@ def reverseList(self, head: ListNode) -> ListNode:
         curr = temp
 
     return prev
+
 
 # recursion
 def reverseList(self, head: ListNode) -> ListNode:
@@ -177,6 +178,38 @@ def reverseList(self, head: ListNode) -> ListNode:
     head.next = None
     # keep track of the head of the reversed LL
     return rev_head
+
+# recursion #2
+def reverseList(self, head: ListNode) -> ListNode:
+    if not head or not head.next:
+        return head
+
+    next_node = head.next
+    # prevent cycles of having head.next of new_head defined differently each time
+    head.next = None
+    next_node.next = head
+    new_head = self.reverseList(next_node)
+
+    return new_head
+
+# recursion #3
+def recursive(head, previous):
+    if head is None:
+        return previous
+    result = recursive(head.next, head)
+    head.next = previous
+    return result
+    
+
+return recursive(head, None)
+
+1 - 2 - 3 - 4 - 5 - none
+
+rL(1) next=2, next.next=1, head.next would be 2 but is now None
+rL(2) next=3, next.next=2
+rL(3) next=4, next.next=3
+rL(4) next=5, next.next=4
+rL(5) = 5
 
 
 ########## 21. Merge Two Sorted Lists ##########
@@ -2673,7 +2706,24 @@ def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
     return temp.next
         
         
-#########  ##############
+######### 217. Contains Duplicate ##############
+def containsDuplicate(nums):
+    """given list of int nums, return True if duplicates, False otherwise
+    >>> containsDuplicate([1,2,3,1])
+    True
+    >>> containsDuplicate([1,2,3,4])
+    False
+    >>> containsDuplicate([1,1,1,3,3,4,3,2,4,2])
+    True
+    """
+    # create set 
+    # if len(set) == len(nums): return False
+    # otherwise return True
+    
+    set_nums = set(nums)
+    if len(nums) == len(set_nums):
+        return False
+    return True
 #########  ##############
 #########  ##############
 

@@ -2724,7 +2724,45 @@ def containsDuplicate(nums):
     if len(nums) == len(set_nums):
         return False
     return True
-#########  ##############
+
+
+######### 54. Spiral Matrix ##############
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        result = []
+        
+        while matrix:
+            result += matrix.pop(0)
+            # rotate matrux
+            matrix = (list(zip(*matrix)))[::-1]
+            print(matrix)
+        
+        return result
+# for beginners who does not know the workings of zip here is explaination:
+
+# l = [1,2,3]
+# l2 = [4,5,6]
+
+# print(list(zip(l,l2)))
+
+# #it will print [(1,4),(2,5),(3,6)]
+
+# For * (Star expression) here's an example to understand
+
+
+# def add(a,b):
+# 	return a+b
+# l = (2,3)
+# print(add(*l))
+# It basically unpacks the tuple and puts them as positional arguments in the function call.
+
+# 1 2 3
+# 4 5 6
+# 7 8 9
+
+# [(4,7) (5,8) (6,9)]
+# 69 58 47
+# 54 87 = 87 54
+
 #########  ##############
 
 #########  ##############

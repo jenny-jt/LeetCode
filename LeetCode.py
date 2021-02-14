@@ -2763,17 +2763,33 @@ def containsDuplicate(nums):
 # 69 58 47
 # 54 87 = 87 54
 
+######### 1290. Convert Binary Number in a Linked List to Integer ##############
+def getDecimalValue(self, head: ListNode) -> int:
+    # initialize binary nums array
+    bin_nums = []
+    sum_ = 0
+
+    # while curr: start at head, append to binary nums
+    curr = head
+    while curr:
+        bin_nums.append(curr.val)
+        curr = curr.next
+    # find len of binary nums array
+    n = len(bin_nums)
+    
+    for i in range(n):
+        sum_ += 2**i * bin_nums[n-1-i]
+        
+    return sum_
+#########  ##############
+#########  ##############
 #########  ##############
 
 #########  ##############
 #########  ##############
-#########  ##############
-
-#########  ##############
-#########  ##############
 
 
-# if __name__ == '__main__':
+# if __name__ == '__mainz__':
 import doctest
 
 print()

@@ -2798,7 +2798,31 @@ def getDecimalValue(self, head: ListNode) -> int:
         sum_ += 2**i * bin_nums[n-1-i]
         
     return sum_
-#########  ##############
+
+
+######### 142. Linked List Cycle II ##############
+def detectCycle(self, head: ListNode) -> ListNode:
+    if not head:
+        return
+    
+    slow = fast = head
+    
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+        if slow == fast:
+            break
+            
+    if not fast or not fast.next:
+        return
+    
+    # slow/fast are ahead of head. will meet where cycle begins
+    while head != slow:
+        head = head.next
+        slow = slow.next
+    return head
+
+
 #########  ##############
 #########  ##############
 
@@ -2807,7 +2831,7 @@ def getDecimalValue(self, head: ListNode) -> int:
 
 
 # if __name__ == '__mainz__':
-import doctest
+import doctestxs
 
 print()
 result = doctest.testmod()

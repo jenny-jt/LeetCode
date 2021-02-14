@@ -857,6 +857,23 @@ def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
 
 
 ######### 141. Linked List Cycle ##############
+# second attempt
+def hasCycle(self, head: ListNode) -> bool:
+    """given LL, return True if cycle present, otherwise False"""
+    
+    # if there is one node or head is None, then return False
+    if not head or not head.next:
+        return False
+    # fast pointer and slow pointer, and seeing if they equal each other
+    fast = slow = head
+    # traverse faster w fast; end of LL, fast will be None
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+        if slow == fast:
+            return True
+
+# first attempt
 def hasCycle(self, head: ListNode) -> bool:
     """given LL, return True if cycle present, otherwise False"""
     

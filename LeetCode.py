@@ -2823,7 +2823,19 @@ def detectCycle(self, head: ListNode) -> ListNode:
     return head
 
 
-#########  ##############
+######### 160. Intersection of Two Linked Lists ##############
+def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+    # traverse both lists
+    # if 1=2, then return node
+    A, B = headA, headB
+    
+    while A != B:
+        A = headB if not A else A.next
+        B = headA if not B else B.next
+        # to keep the number of nodes traversed the same, keep switching between lists
+    return A
+
+
 #########  ##############
 
 #########  ##############

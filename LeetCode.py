@@ -2700,6 +2700,31 @@ def repeatedNTimes(self, A: List[int]) -> int:
 
 
 ######### 19. Remove Nth Node From End of List ##############
+# second attempt
+def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+    """given head node and int n apart, return list with n node removed"""
+
+    # 2 pointers, one moves n+1 ahead
+    # when faster one is none, the next node is the one to be removed
+    # set curr.next to curr.next.next
+    if not head.next:
+        return
+    
+    fast = slow = head
+    
+    for i in range(n):
+        fast = fast.next
+    # if reached end of list and fast = None, supposed to remove head
+    if not fast:
+        return head.next
+
+    while fast.next:
+        fast = fast.next
+        slow = slow.next
+    
+    slow.next = slow.next.next
+    
+    return head
 def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
     """given head node and int n apart, return list with n node removed"""
 

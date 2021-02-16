@@ -2861,7 +2861,35 @@ def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
     return A
 
 
-#########  ##############
+######### 43. Multiply Strings ##############
+
+def multiply(self, num1: str, num2: str) -> str:
+    # edge cases
+    if not num1 or not num2:
+        return "0"
+    
+    if num1[0] == '0' or num2[0] == '0':
+        return "0"
+    
+    # convert to int
+    n1, n2 = 0, 0
+    for digit in num1:
+        n1 = n1 * 10 + ord(digit) - ord('0')
+    for digit in num2:
+        n2 = n2 * 10 + ord(digit) - ord('0')
+    
+    product = n1 * n2
+    
+    # convert to str
+    res = ''
+    while product:
+        res += chr(ord('0') + product % 10)
+        product //= 10
+    
+    return res[::-1]
+    
+        
+        
 
 #########  ##############
 #########  ##############

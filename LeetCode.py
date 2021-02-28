@@ -893,7 +893,7 @@ def hasCycle(self, head: ListNode) -> bool:
     return True
 
 
-######### 141. Linked List Cycle ##############
+######### 141. Reverse Linked List ##############
 def reverseList(self, head: ListNode) -> ListNode:
     """reverse a SLL"""
     prev = None
@@ -1909,7 +1909,6 @@ def lengthOfLongestSubstring(self, s: str) -> int:
     return length
         
 
-
 ######### 70. Climbing Stairs ##############
 # dp
 def climbStairs(self, n: int) -> int:
@@ -2835,13 +2834,15 @@ def detectCycle(self, head: ListNode) -> ListNode:
     while fast and fast.next:
         fast = fast.next.next
         slow = slow.next
+        # found a cycle
         if slow == fast:
             break
-            
+
+    # no cycle present, reached end of list        
     if not fast or not fast.next:
         return
     
-    # slow/fast are ahead of head. will meet where cycle begins
+    # slow/fast are ahead of head. gap is how far the cycle begins. will meet where cycle begins
     while head != slow:
         head = head.next
         slow = slow.next
@@ -2862,7 +2863,6 @@ def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
 
 
 ######### 43. Multiply Strings ##############
-
 def multiply(self, num1: str, num2: str) -> str:
     # edge cases
     if not num1 or not num2:
@@ -2888,14 +2888,19 @@ def multiply(self, num1: str, num2: str) -> str:
     
     return res[::-1]
     
-        
-        
-
+    
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
 #########  ##############
 #########  ##############
 
-
-# if __name__ == '__mainz__':
+# if __name__ == '__main__':
 import doctestxs
 
 print()

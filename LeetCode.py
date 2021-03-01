@@ -2842,7 +2842,7 @@ def detectCycle(self, head: ListNode) -> ListNode:
     if not fast or not fast.next:
         return
     
-    # slow/fast are ahead of head. gap is how far the cycle begins. will meet where cycle begins
+    # dist from where slow and fast meet to where cycle begins = dist from head to start of cycle
     while head != slow:
         head = head.next
         slow = slow.next

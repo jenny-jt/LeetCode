@@ -149,13 +149,28 @@ class MinStack:
 
 
 ########## 206. Reverse Linked List ##########
-# iteration
+# iteration without curr
+# https://www.youtube.com/watch?v=NhapasNIKuQ&t=239s&ab_channel=NickWhite
+def reverseList(self, head: ListNode) -> ListNode:
+    """reverse a SLL"""
+    _next = None
+    prev = None
+    
+    while head:
+        _next = head.next
+        head.next = prev
+        prev = head
+        head = _next
+    
+    return prev
+
+# iteration with curr
 def reverseList(self, head: ListNode) -> ListNode:
     """reverse a SLL"""
     prev = None
     curr = head
 
-    while curr != None:
+    while curr:
         temp = curr.next
         curr.next = prev
         prev = curr
@@ -2911,6 +2926,7 @@ def partition(self, head: ListNode, x: int) -> ListNode:
 
 
 ######### 2. Add Two Numbers ##############
+# using modulo, faster
 def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
     sum_ll_head = ListNode(None)
     curr = sum_ll_head
@@ -2939,6 +2955,37 @@ def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         
     return sum_ll_head.next
 
+# using boolean, slower
+def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+    sum_ll_head = ListNode(None)
+    curr = sum_ll_head
+    extra = False
+
+    while l1 or l2:
+        new = ListNode(0)
+
+        if l1:
+            new.val += l1.val
+            l1 = l1.next
+        if l2:
+            new.val += l2.val
+            l2 = l2.next
+
+        if extra:
+            new.val += 1
+            extra = False
+            
+        if new.val > 9:
+            extra = True
+            new.val -= 10
+
+        curr.next = new
+        curr = curr.next
+        
+    if extra:
+        curr.next = ListNode(1)
+        
+    return sum_ll_head.next
 
 #########  ##############
 #########  ##############

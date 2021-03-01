@@ -2903,12 +2903,43 @@ def partition(self, head: ListNode, x: int) -> ListNode:
             greater.next = curr
             greater = greater.next
         curr = curr.next
-    
+    # important to prevent cycle
     greater.next = None
     less.next = head_greater.next
     
     return head_less.next
-#########  ##############
+
+
+######### 2. Add Two Numbers ##############
+def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+    sum_ll_head = ListNode(None)
+    curr = sum_ll_head
+    arr = [0]
+
+    while l1 or l2:
+        new = ListNode()
+
+        if l1:
+            arr[-1] += l1.val
+            l1 = l1.next
+        if l2:
+            arr[-1] += l2.val
+            l2 = l2.next
+
+        x = arr[-1] % 10
+        new.val += x
+        arr[-1] //= 10
+        
+        curr.next = new
+        curr = curr.next
+    
+    if arr[-1] > 0:
+        curr.next = ListNode(arr[-1])
+        curr = curr.next
+        
+    return sum_ll_head.next
+
+
 #########  ##############
 #########  ##############
 #########  ##############

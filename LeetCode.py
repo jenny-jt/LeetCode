@@ -2773,7 +2773,7 @@ def containsDuplicate(nums):
         
         while matrix:
             result += matrix.pop(0)
-            # rotate matrux
+            # rotate matrix
             matrix = (list(zip(*matrix)))[::-1]
             print(matrix)
         
@@ -2787,7 +2787,7 @@ def containsDuplicate(nums):
 
 # #it will print [(1,4),(2,5),(3,6)]
 
-# For * (Star expression) here's an example to understand
+# For * (Star expression) = unpacking
 
 
 # def add(a,b):
@@ -2889,7 +2889,25 @@ def multiply(self, num1: str, num2: str) -> str:
     return res[::-1]
     
     
-#########  ##############
+######### 86. Partition List ##############
+def partition(self, head: ListNode, x: int) -> ListNode:
+    head_less = less = ListNode(None)
+    head_greater = greater = ListNode(None)
+    
+    curr = head
+    while curr:
+        if curr.val < x:
+            less.next = curr
+            less = less.next
+        else:
+            greater.next = curr
+            greater = greater.next
+        curr = curr.next
+    
+    greater.next = None
+    less.next = head_greater.next
+    
+    return head_less.next
 #########  ##############
 #########  ##############
 #########  ##############

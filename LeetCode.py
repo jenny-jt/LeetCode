@@ -3066,7 +3066,28 @@ class QueueWithStacks():
 
 
 
-#########  ##############
+######### 108. Convert Sorted Array to Binary Search Tree ##############
+class TreeNode():
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+    if not nums:
+        return
+    
+    m = len(nums)
+    
+    # find median of list
+    idx_median = m //2
+    
+    root = TreeNode(nums[idx_median])
+    
+    root.left = self.sortedArrayToBST(nums[:idx_median])
+    root.right = self.sortedArrayToBST(nums[idx_median+1:])
+    
+    return root
 #########  ##############
 #########  ##############
 #########  ##############

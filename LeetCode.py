@@ -155,14 +155,15 @@ def reverseList(self, head: ListNode) -> ListNode:
     """reverse a SLL"""
     _next = None
     prev = None
-    
+
     while head:
         _next = head.next
         head.next = prev
         prev = head
         head = _next
-    
+
     return prev
+
 
 # iteration with curr
 def reverseList(self, head: ListNode) -> ListNode:
@@ -2987,7 +2988,84 @@ def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         
     return sum_ll_head.next
 
-#########  ##############
+######### 232. Implement Queue using Stacks ##############
+
+class MyQueue:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.s1 = []
+        self.s2 = []
+
+    def push(self, x: int) -> None:
+        """
+        Push element x to the back of queue.
+        """
+        self.s1.append(x)
+
+    def pop(self) -> int:
+        """
+        Removes the element from in front of queue and returns that element.
+        """
+        if self.empty():
+            raise ValueError('empty q')
+        
+        # make s2 if empty, don't make again until need to replenish
+        if not self.s2:
+            while self.s1:
+                self.s2.append(self.s1.pop())
+                
+        return self.s2.pop()
+
+    
+    def peek(self) -> int:
+        """
+        Get the front element.
+        """
+        if self.s2:
+            return self.s2[-1]
+        else:
+            return self.s1[0]
+
+
+    def empty(self) -> bool:
+        """
+        Returns whether the queue is empty.
+        """
+        return not self.s1 and not self.s2
+
+# using reverse method
+class QueueWithStacks():
+    def __init__(self):
+        self.s1 = []
+        self.s2 = []
+    
+    def empty(self):
+        return len(self.s1) == 0 and len(self.s2) == 0
+    
+    def enqueue(self, item):
+        self.s1.append(item)
+    
+    def reverse(self):
+        while self.s1:
+            pop = self.s1.pop()
+            self.s2.append(pop)
+    
+    def dequeue(self):
+        # if there's something in s1, make s2
+        if len(self.s1) > 0 and not self.s2:
+            self.reverse()
+        return self.s2.pop()
+
+    def peek(self):
+        if len(self.s1) > 0 and not self.s2:
+            self.reverse()
+        return self.s2[-1]
+
+
+
 #########  ##############
 #########  ##############
 #########  ##############

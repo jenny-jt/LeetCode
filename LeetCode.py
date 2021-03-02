@@ -3088,7 +3088,39 @@ def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
     root.right = self.sortedArrayToBST(nums[idx_median+1:])
     
     return root
-#########  ##############
+
+
+######### 102. Binary Tree Level Order Traversal ##############
+def levelOrder(self, root: TreeNode) -> List[List[int]]:
+    if not root:
+        return
+    visited = set()
+    q = collections.deque([])
+    ans = []
+    
+    visited.add(root)
+    q.append(root)
+    
+    while q:
+        level = []
+        nodes = len(q)
+        
+        while nodes:
+            pop = q.popleft()
+            level.append(pop.val)
+            nodes -= 1
+            
+            if pop.left and pop.left not in visited:
+                visited.add(pop.left)
+                q.append(pop.left)
+
+            if pop.right and pop.right not in visited:
+                visited.add(pop.right)
+                q.append(pop.right)
+                
+        ans.append(level)
+        
+    return ans
 #########  ##############
 #########  ##############
 #########  ##############

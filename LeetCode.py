@@ -2512,7 +2512,7 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
 
 ######### 110. Balanced Binary Tree ##############
 
-# using helper function to find height and modify boolean
+# using helper function to find height and modify boolean; faster
 def isBalanced(self, root: TreeNode) -> bool:
     """return True if balanced, False if not"""
     
@@ -2537,6 +2537,32 @@ def isBalanced(self, root: TreeNode) -> bool:
     dfs(root)
 
     return balanced
+
+
+# checking root and left/right subtrees, without boolean, slower (likely more function calls)
+def isBalanced(self, root: TreeNode) -> bool:
+    """return True if balanced, False if not"""
+    
+    if not root:
+        return True
+
+    def dfs(node):
+        """return height, and also modified boolean"""
+        if not node:
+            return 0
+
+        left = dfs(node.left)
+        right = dfs(node.right)
+                
+        return 1 + max(left, right)
+    
+    # check if root is balanced
+    if abs(dfs(root.left) - dfs(root.right)) > 1:
+        return False
+    # check if left and right subtrees are balanced
+    return self.isBalanced(root.left) and self.isBalanced(root.right)
+    
+        
 
 def isBalanced(self, root: TreeNode) -> bool:
     if not root:
@@ -3147,7 +3173,26 @@ def levelOrder(self, root: TreeNode) -> List[List[int]]:
         ans.append(level)
         
     return ans
-#########  ##############
+
+
+######### 98. Validate Binary Search Tree ##############
+def isValidBST(root):
+    """return True if BST, False if not"""
+    if not root:
+        return True
+
+    def dfs(node, lower, upper):
+        """return True if follow BST rules"""
+        if not node:
+            return True
+        # rules: L values < node.val, R values > node.val
+        if lower < node.val < upper:
+            return dfs(node.left, lower, node.val) and dfs(node.right, node.val, upper)
+        return False
+        
+
+    return dfs(root, float('-inf'), float('inf'))
+
 #########  ##############
 #########  ##############
 #########  ##############

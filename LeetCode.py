@@ -1553,6 +1553,7 @@ def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         for course in courses[take]:
             incoming[course] -= 1
             # if course can now be taken and has not already been taken, add it to stack
+            # code still runs if not use visited condition, actually faster- why? should be checking a set
             if incoming[course] == 0 and course not in visited:
                 stack.append(course)
         # will check if we "took" the same number of courses as numcourses
@@ -1560,8 +1561,6 @@ def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
     
     return count == numCourses
             
-        
-
 
 def canFinish(numCourses, prerequisites):
     """given list of courses and list of prereq
@@ -1609,6 +1608,44 @@ def canFinish(numCourses, prerequisites):
 
 ######### 207. Course Schedule 2 ##############
 from collections import defaultdict
+
+# second attempt, using default dict and list comprehension
+def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+    """given list of courses and list of prereq, return boolean True if can take all courses"""
+    if not prerequisites:
+        return [course for course in range(numCourses)]
+
+    stack, complete = [], []
+    courses = defaultdict(list)
+    incoming = defaultdict(int)
+    # first dependent on second
+    # loop through prereqs and make dicts of incoming and of key(pre): value(courses with that prereq)
+    for course, pre in prerequisites:
+        # can decrease incoming dependency for each course that has the prereq that we "take"
+        courses[pre].append(course)
+        incoming[course] += 1
+
+    # "take" courses without prereqs if not already taken
+    stack = [course for course in range(numCourses) if incoming[course] == 0]
+    
+    # update prereqs based on taken classes
+    while stack:
+        take = stack.pop()
+        # add taken class to ans
+        complete.append(take)
+        # decrease incoming for course with the prereq that was "taken"
+        for course in courses[take]:
+            incoming[course] -= 1
+            # if course can now be taken and has not already been taken, add it to stack
+            # code still runs if not use visited condition, actually faster- why? should be checking a set
+            if incoming[course] == 0:
+                stack.append(course)
+                
+    # will check if we "took" the same number of courses as numcourses
+    if len(complete) == numCourses:
+        return complete
+    return []
+        
 
 def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
 
@@ -2549,6 +2586,60 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
     return dfs(root, target)
 
 ######### 110. Balanced Binary Tree ##############
+
+# using helper function to find height, not use boolean
+def isBalanced(self, root: TreeNode) -> bool:
+    """return True if balanced, False if not"""
+    
+    if not root:
+        return True
+
+    def dfs(node):
+        """return height"""
+        
+        if not node:
+            return 0
+        print("node", node.val)
+        left = dfs(node.left)
+        print("L", left)
+        right = dfs(node.right)
+        print("R", right)
+                
+        return 1 + max(left, right)
+    
+    # check if root is balanced
+    if abs(dfs(root.left) - dfs(root.right)) > 1:
+        return False
+    
+    # check if left and right subtrees are balanced
+    return self.isBalanced(root.left) and self.isBalanced(root.right)
+    
+# input
+# [1,2,2,3,3,null,null,4,4]
+# call stack order (left, left, left, hit end and then L and R, L and R)
+# node 2
+# node 3
+# node 4
+# L 0
+# R 0
+# L 1
+# node 4
+# L 0
+# R 0
+# R 1
+# L 2
+# node 3
+# L 0
+# R 0
+# R 1
+# node 2
+# L 0
+# R 0
+
+
+
+
+
 
 # using helper function to find height and modify boolean; faster
 def isBalanced(self, root: TreeNode) -> bool:

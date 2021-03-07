@@ -1521,9 +1521,47 @@ def removeDuplicates(self, nums: List[int]) -> int:
     return dfs(nums, 0)
 
 
-######### 207. Course Schedule ##############
-
+######### 207. Course Schedule #############
 from collections import defaultdict
+# second attempt
+def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    """given list of courses and list of prereq, return boolean True if can take all courses"""
+    if not prerequisites:
+        return True
+    
+    stack = []
+    visited = set()
+    courses = defaultdict(list)
+    incoming = defaultdict(int)
+    # first dependent on second
+    # loop through prereqs and make dicts of incoming and of courses with prereq
+    for course, pre in prerequisites:
+        # can decrease incoming dependency for each course that has the prereq that we "take"
+        courses[pre].append(course)
+        incoming[course] += 1
+        
+    # "take" courses without prereqs if not already taken
+    for i in range(numCourses):
+        if incoming[i] == 0:
+            stack.append(i)
+            visited.add(i)
+    # update prereqs based on those in res already
+    count = 0
+    while stack:
+        take = stack.pop()
+        # decrease incoming for course with the prereq that was "taken"
+        for course in courses[take]:
+            incoming[course] -= 1
+            # if course can now be taken and has not already been taken, add it to stack
+            if incoming[course] == 0 and course not in visited:
+                stack.append(course)
+        # will check if we "took" the same number of courses as numcourses
+        count += 1
+    
+    return count == numCourses
+            
+        
+
 
 def canFinish(numCourses, prerequisites):
     """given list of courses and list of prereq

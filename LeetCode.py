@@ -3322,7 +3322,25 @@ def isValidBST(root):
 
     return dfs(root, float('-inf'), float('inf'))
 
-#########  ##############
+######### 572. Subtree of Another Tree ##############
+def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+    if not s:
+        return False
+    
+    # helper function to call on root nodes of 2 subtrees
+    def equal(s, t):
+        if not s and not t:
+            return True
+        if not s or not t:
+            return False
+        if s.val != t.val: 
+            return False
+        return equal(s.left, t.left) and equal(s.right, t.right)
+    
+    if s.val == t.val and equal(s,t):
+        return True
+    return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
+
 #########  ##############
 #########  ##############
 #########  ##############

@@ -3336,8 +3336,64 @@ def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
         return True
     return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
 
-#########  ##############
-#########  ##############
+######### 894. All Possible Full Binary Trees ##############
+def allPossibleFBT(self, n: int) -> List[TreeNode]:
+    
+    # even number of nodes: not full tree
+    if n % 2 == 0:
+        return []
+    
+    memo = {}
+    
+    def make_full_bt(n):
+        # base cases
+        if n == 1:
+            return [TreeNode(0)]
+        if n in memo:
+            return memo[n]
+        
+        # if n not in memo, make entry for n
+        res = []
+        
+        for i in range(1, n, 2):
+            # make all possible combos of total num of L and R nodes 
+            left = make_full_bt(i)
+            right = make_full_bt(n-i-1)
+            # add subtree to res
+            res.extend([TreeNode(0, l, r) for l in left for r in right])
+            
+        memo[n] = res
+                
+        return memo[n]
+    
+    return make_full_bt(n)
+
+
+######### 606. Construct String from Binary Tree ##############
+# no helper function
+def tree2str(self, t: TreeNode) -> str:
+    # output preorder nodes
+    # no left child and there is a right child, we need to print () for the left child
+    # when we print a child, print ( child )
+    
+    if not t:
+        return ""
+    
+    # if no L child
+    if not t.left:
+        # if also no R child, just return str(t.val)
+        if not t.right:
+            return str(t.val) 
+        # if R child, then have to put in the () for the null L child
+        else:
+            return str(t.val) + "()(" + self.tree2str(t.right) + ")"
+    # if no R child, just print out root with the L child
+    if not t.right:
+        return str(t.val) + "(" + self.tree2str(t.left) + ")"
+    # if both L and R children, then print both out
+    return str(t.val) + "(" + self.tree2str(t.left) + ")(" + self.tree2str(t.right) + ")"   
+
+
 #########  ##############
 
 # if __name__ == '__main__':

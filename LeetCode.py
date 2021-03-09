@@ -2636,11 +2636,6 @@ def isBalanced(self, root: TreeNode) -> bool:
 # L 0
 # R 0
 
-
-
-
-
-
 # using helper function to find height and modify boolean; faster
 def isBalanced(self, root: TreeNode) -> bool:
     """return True if balanced, False if not"""

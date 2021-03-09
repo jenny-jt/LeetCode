@@ -3394,7 +3394,18 @@ def tree2str(self, t: TreeNode) -> str:
     return str(t.val) + "(" + self.tree2str(t.left) + ")(" + self.tree2str(t.right) + ")"   
 
 
-#########  ##############
+######### 112. Path Sum ##############
+def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+    if not root:
+        return False
+    
+    # if leaf node and targetSum - root.val == 0: return True
+    if not targetSum-root.val and not (root.left or root.right):
+        return True
+    # neither of those conditions is true, check children
+    # return whichever one is True, if both are not True, will return False
+    return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)
+    
 
 # if __name__ == '__main__':
 import doctestxs

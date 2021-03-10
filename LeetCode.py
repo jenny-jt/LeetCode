@@ -1276,6 +1276,8 @@ def addStrings(self, num1: str, num2: str) -> str:
 
 
 ######### 78. Subsets ##############
+
+# iteration, faster
 def subsets(self, nums: List[int]) -> List[List[int]]:
     """given array of int, return set of all possible subsets"""
 
@@ -1284,10 +1286,22 @@ def subsets(self, nums: List[int]) -> List[List[int]]:
     for num in nums:
         # [] + [1] = [1] so each time a num is added, output will have single num with combos
         output += [item + [num] for item in output]
-        print(output)
+        # print(output)
         
     return output
-        
+
+# recursion, slower
+def subsets(self, nums: List[int]) -> List[List[int]]:
+    """given array of int, return set of all possible subsets"""
+    if not nums:
+        return [[]]
+    
+    others = self.subsets(nums[1:])
+    # print(others)
+    
+    # add on nums[0]
+    return [[nums[0]] + seq for seq in others] + others
+
 
 ######### 62. Unique Paths ##############
 

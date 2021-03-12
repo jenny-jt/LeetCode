@@ -2031,7 +2031,25 @@ def climbStairs(self, n: int) -> int:
     # print(dp)
     return dp[n]
 
-# recursion
+# recursion without helper function
+memo = {}
+
+def climbStairs(n):
+    """given staircase of n steps, return int ways can climb to top"""
+    if n < 0: 
+        return 0
+    
+    if n == 0 or n == 1:
+        return 1
+    
+    if n not in self.memo:
+        memo[n] = self.climbStairs(n-1) + self.climbStairs(n-2)
+    
+    return memo[n]
+
+
+
+# recursion with helper function
 def climbStairs(self, n: int) -> int:
     """given staircase of n steps, return int ways can climb to top"""
     memo = {}

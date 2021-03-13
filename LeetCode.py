@@ -1304,6 +1304,24 @@ def subsets(self, nums: List[int]) -> List[List[int]]:
 
 
 ######### 62. Unique Paths ##############
+# helper function
+def uniquePaths(self, m: int, n: int) -> int:
+    """dp solution"""
+    # make griid
+    res = [[0] * n for r in range(m)]
+    # helper to fill in grid                
+    def helper(r, c, res):
+        if r == 0 or c == 0:
+            res[r][c] = 1
+        else:
+            res[r][c] = res[r-1][c] + res[r][c-1]
+    # fill in grid
+    for r in range(m):
+        for c in range(n):
+            helper(r,c,res)
+
+    # return index so m-1, n-1
+    return res[m-1][n-1]
 
 # recursion
 cache = {}
@@ -3442,6 +3460,8 @@ def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
 ######### 63. Unique Paths II ##############
 def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
     memo = {}
+    m = len(obstacleGrid)
+    n = len(obstacleGrid[0])
     
     def ways(r, c, memo):
         # out of bounds or an obstacle, no way to get there
@@ -3450,13 +3470,38 @@ def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         # if origin, there is only 1 way to get there
         if r == c == 0:
             return 1
+        if r >= m or c >= n:
+            return 0
         if (r,c) not in memo:
             memo[(r,c)] = ways(r-1,c, memo) + ways(r, c-1, memo)
         
         return memo[(r,c)]
     
-    return ways(len(obstacleGrid)-1, len(obstacleGrid[0])-1, memo)
+    return ways(m-1, n-1, memo)
 
+
+# another recursion, opposite base case
+def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+    cache = {}
+    max_row = len(obstacleGrid) - 1 
+    max_column = len(obstacleGrid[0]) - 1 
+    
+    def helper(obstacleGrid, current_row, current_column, cache): 
+        if current_row > max_row or current_column > max_column:
+            return 0 
+
+        if obstacleGrid[current_row][current_column] == 1:
+            return 0 
+
+        if current_row == max_row and current_column == max_column:
+            return 1 
+
+        if (current_row, current_column) not in cache:
+            cache[(current_row, current_column)] = helper(obstacleGrid, current_row + 1, current_column, cache) + helper(obstacleGrid, current_row, current_column + 1, cache) 
+
+        return cache[(current_row, current_column)]
+
+    return helper(obstacleGrid, 0, 0, {})
 
 #########  ##############
 #########  ##############

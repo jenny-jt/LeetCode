@@ -3437,7 +3437,39 @@ def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
     # neither of those conditions is true, check children
     # return whichever one is True, if both are not True, will return False
     return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)
+
+
+######### 63. Unique Paths II ##############
+def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+    memo = {}
     
+    def ways(r, c, memo):
+        # out of bounds or an obstacle, no way to get there
+        if r < 0 or c < 0 or obstacleGrid[r][c] == 1:
+            return 0
+        # if origin, there is only 1 way to get there
+        if r == c == 0:
+            return 1
+        if (r,c) not in memo:
+            memo[(r,c)] = ways(r-1,c, memo) + ways(r, c-1, memo)
+        
+        return memo[(r,c)]
+    
+    return ways(len(obstacleGrid)-1, len(obstacleGrid[0])-1, memo)
+
+
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
 
 # if __name__ == '__main__':
 import doctestxs

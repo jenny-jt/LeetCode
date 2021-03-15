@@ -3503,7 +3503,22 @@ def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
 
     return helper(obstacleGrid, 0, 0, {})
 
-#########  ##############
+
+######### 46. Permutations ##############
+def permute(self, nums: List[int]) -> List[List[int]]:
+    if not nums:
+        return []
+    if len(nums) == 1:
+        return [nums]
+    l = []
+    for i in range(len(nums)):
+        new_nums = nums[:i] + nums[i+1:]
+        n = nums[i]
+        for p in self.permute(new_nums):
+            l.append([n] + p)     
+    return l    
+
+
 #########  ##############
 #########  ##############
 #########  ##############

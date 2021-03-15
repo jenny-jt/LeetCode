@@ -3467,7 +3467,7 @@ def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         # out of bounds or an obstacle, no way to get there
         if r < 0 or c < 0 or obstacleGrid[r][c] == 1:
             return 0
-        # if origin, there is only 1 way to get there
+        # only one way to get to origin from origin
         if r == c == 0:
             return 1
         if r >= m or c >= n:

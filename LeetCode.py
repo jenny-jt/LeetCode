@@ -3519,7 +3519,20 @@ def permute(self, nums: List[int]) -> List[List[int]]:
     return l    
 
 
-#########  ##############
+######### 1791. Find Center of Star Graph ##############
+from collections import Counter
+
+def findCenter(self, edges: List[List[int]]) -> int:
+    # undirected: equivalent either direction
+    d = {}
+    for edge in edges:
+        if edge[1] in d:
+            return edge[1]
+        if edge[1] in d.values():
+            return edge[1]
+        d[edge[0]] = edge[1]
+
+
 #########  ##############
 #########  ##############
 #########  ##############

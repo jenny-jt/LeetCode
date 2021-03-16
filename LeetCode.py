@@ -3533,7 +3533,22 @@ def findCenter(self, edges: List[List[int]]) -> int:
         d[edge[0]] = edge[1]
 
 
-#########  ##############
+######### Permutations II ##############
+def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+    if not nums:
+        return []
+    if len(nums) == 1:
+        return [nums]
+    res = []
+    for i in range(len(nums)):
+        head = [nums[i]]
+        new_nums = nums[:i] + nums[i+1:]
+        for seq in self.permuteUnique(new_nums):
+            if head + seq not in res:
+                res.append(head + seq)
+    return res
+
+
 #########  ##############
 #########  ##############
 #########  ##############

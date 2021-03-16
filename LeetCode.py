@@ -3418,6 +3418,24 @@ def levelOrder(self, root: TreeNode) -> List[List[int]]:
 
 
 ######### 98. Validate Binary Search Tree ##############
+# reattempt
+def isValidBST(self, root: TreeNode) -> bool:
+    if not root:
+        print("end", root.val)
+        return True
+    
+    # helper function to check BST rules of a node
+    def BST(node, low, high):
+        if not node:
+            return True
+        if low < node.val < high:
+            return BST(node.left, low, node.val) and BST(node.right, node.val, high)
+        return False
+    
+    return BST(root, float('-inf'), float('inf'))
+
+   
+# first attempt
 def isValidBST(root):
     """return True if BST, False if not"""
     if not root:

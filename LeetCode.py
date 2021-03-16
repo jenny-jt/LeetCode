@@ -2636,6 +2636,30 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
     return dfs(root, target)
 
 ######### 110. Balanced Binary Tree ##############
+# using height helper function, reattempt
+def isBalanced(self, root: TreeNode) -> bool:
+    """return True if balanced, False if not"""
+    
+    if not root: 
+        return True
+    
+    # helper function to calculate height of a subtree from the root
+    def tree_height(node):
+        if not node:
+            return 0
+        left = tree_height(node.left)
+        right = tree_height(node.right)
+        
+        return max(left, right) + 1
+    
+    L = tree_height(root.left)
+    R = tree_height(root.right)
+    
+    if abs(L-R) > 1:
+        return False
+    
+    return self.isBalanced(root.left) and self.isBalanced(root.right)
+
 
 # using helper function to find height, not use boolean
 def isBalanced(self, root: TreeNode) -> bool:

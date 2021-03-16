@@ -3299,6 +3299,23 @@ class TreeNode():
         self.left = left
         self.right = right
 
+# second attempt
+def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+    if not nums:
+        return
+    
+    median = len(nums) // 2
+    
+    root_val = nums[median]
+    
+    root = TreeNode(root_val)
+    
+    root.left = self.sortedArrayToBST(nums[:median])
+    root.right = self.sortedArrayToBST(nums[median+1:])
+    
+    return root
+
+# first attempt
 def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
     if not nums:
         return
@@ -3317,15 +3334,42 @@ def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
 
 
 ######### 102. Binary Tree Level Order Traversal ##############
+# using regular q
+def levelOrder(self, root: TreeNode) -> List[List[int]]:
+    # bfs L before R
+    if not root:
+        return
+    
+    q = [root]
+    
+    res = []
+    
+    while q:
+        level = []
+        nodes = len(q)
+        while nodes:
+            pop = q.pop(0)
+            nodes -= 1
+            # print("pop", pop.val)
+            if pop.left:
+                q.append(pop.left)
+            if pop.right:
+                q.append(pop.right)
+            level.append(pop.val)
+        res.append(level)
+    
+    return res
+
+
+# using collections deque, same speed
 def levelOrder(self, root: TreeNode) -> List[List[int]]:
     if not root:
         return
     visited = set()
-    q = collections.deque([])
+    q = collections.deque([root])
     ans = []
     
     visited.add(root)
-    q.append(root)
     
     while q:
         level = []

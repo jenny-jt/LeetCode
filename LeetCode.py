@@ -3434,7 +3434,7 @@ def isValidBST(self, root: TreeNode) -> bool:
     
     return BST(root, float('-inf'), float('inf'))
 
-   
+
 # first attempt
 def isValidBST(root):
     """return True if BST, False if not"""
@@ -3454,6 +3454,31 @@ def isValidBST(root):
     return dfs(root, float('-inf'), float('inf'))
 
 ######### 572. Subtree of Another Tree ##############
+def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+    if not s:
+        return False
+    
+    # helper function to call on roots
+    def equal_trees(node1, node2):
+        if not node1 and not node2:
+            return True
+        if not node1 or not node2:
+            # if node1:
+            #     print("1", node1)
+            # if node2:
+            #     print("2", node2)
+            return False
+        if node1.val != node2.val:
+            return False
+        return equal_trees(node1.left, node2.left) and equal_trees(node1.right, node2.right)
+    # need both conditions in case s == t, but not correct subtrees
+    # otherwise will stop when s == t, but not right subtree
+    if s.val == t.val and equal_trees(s,t):
+        return equal_trees(s,t)  # or return True
+    
+    return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
+
+
 def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
     if not s:
         return False

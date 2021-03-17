@@ -3657,6 +3657,48 @@ def permuteUnique(self, nums: List[int]) -> List[List[int]]:
 
 
 ######### 128. Longest Consecutive Sequence ##############
+# using set, runtime O(n)
+def longestConsecutive(self, nums: List[int]) -> int:
+    """given int array, return len of longest consecutive seq"""
+    if not nums:
+        return 0
+    
+    nums_set = set(nums)
+    longest = 1
+    
+    for num in nums_set:
+        # starting out with the smallest num not in seq
+        if num - 1 not in nums_set:
+            curr = num
+            # print(curr)
+            curr_longest = 1
+            while curr + 1 in nums_set:
+                curr += 1
+                curr_longest += 1
+                # print("curr longest", curr_longest)
+            longest = max(longest, curr_longest)
+        return longest
+
+# using sort, runtime O(n log n)
+def longestConsecutive(self, nums: List[int]) -> int:
+    """given int array, return len of longest consecutive seq"""
+    if not nums:
+        return 0
+    
+    nums.sort()
+    
+    curr, longest = 1,1
+    for i in range(1, len(nums)):
+        if nums[i] != nums[i-1]:
+            if nums[i] == nums[i-1] + 1:
+                curr += 1
+            else:
+                longest = max(curr, longest)
+                curr = 1
+
+    return max(longest, curr)
+
+# using counter to reduce duplicates, and also dp, very slow, runtime O(n2)
 from collections import Counter
 
 def longestConsecutive(self, nums: List[int]) -> int:

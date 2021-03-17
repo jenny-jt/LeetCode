@@ -3463,10 +3463,6 @@ def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
         if not node1 and not node2:
             return True
         if not node1 or not node2:
-            # if node1:
-            #     print("1", node1)
-            # if node2:
-            #     print("2", node2)
             return False
         if node1.val != node2.val:
             return False
@@ -3660,7 +3656,30 @@ def permuteUnique(self, nums: List[int]) -> List[List[int]]:
     return res
 
 
-#########  ##############
+######### 128. Longest Consecutive Sequence ##############
+from collections import Counter
+
+def longestConsecutive(self, nums: List[int]) -> int:
+    """given int array, return len of longest consecutive seq"""
+    if not nums:
+        return 0
+    
+    c = Counter(nums)
+    l_nums = list(c.keys())
+    # sort the keys of c to get max length possible
+    l_nums.sort()
+    print(l_nums)
+
+    dp = [1] * len(l_nums)
+    
+    for i in range(len(l_nums)):
+        for j in range(i):
+            if l_nums[i] == l_nums[j] + 1:
+                dp[i] = max(dp[i], dp[j] +1)
+    
+    return max(dp)
+
+
 #########  ##############
 #########  ##############
 #########  ##############

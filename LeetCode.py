@@ -3658,6 +3658,7 @@ def permuteUnique(self, nums: List[int]) -> List[List[int]]:
 
 ######### 128. Longest Consecutive Sequence ##############
 # using set, runtime O(n)
+# while loop looks like whole runtime is O(n2), but because runs very seldomly, can be considered O(n + n) which is O(n)
 def longestConsecutive(self, nums: List[int]) -> int:
     """given int array, return len of longest consecutive seq"""
     if not nums:
@@ -3722,7 +3723,22 @@ def longestConsecutive(self, nums: List[int]) -> int:
     return max(dp)
 
 
-#########  ##############
+######### 412. Fizz Buzz ##############
+def fizzBuzz(self, n: int) -> List[str]:
+    ans = []
+    for num in range(1, n+1):
+        if num % 3 == 0 and num % 5 == 0:
+            ans.append("FizzBuzz")
+        elif num % 3 == 0:
+            ans.append("Fizz")
+        elif num % 5 == 0:
+            ans.append("Buzz")
+        else:
+            ans.append(str(num))
+            
+    return ans
+
+
 #########  ##############
 #########  ##############
 #########  ##############

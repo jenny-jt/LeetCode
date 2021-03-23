@@ -3921,7 +3921,23 @@ def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
                 count += 1
 
     return count
-#########  ##############
+######### 290. Word Pattern ##############
+def wordPattern(self, pattern: str, s: str) -> bool:
+    list_s = s.split(" ")
+    d_chars = {}
+    d_words = {}
+    if len(pattern) != len(list_s):
+        return False
+    
+    for char, word in zip(pattern, list_s):
+        if char not in d_chars:
+            if word in d_words:
+                return False
+            d_chars[char] = word
+            d_words[word] = char
+        if d_chars[char] != word:
+            return False
+    return True
 #########  ##############
 #########  ##############
 #########  ##############

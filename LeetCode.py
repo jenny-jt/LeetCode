@@ -3873,7 +3873,54 @@ def longestCommonPrefix(self, strs: List[str]) -> str:
                 return strs[0][:i]
         
     return strs[0]
-#########  ##############
+
+
+######### 840. Magic Squares In Grid ##############
+def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
+    
+    # edge cases (not wide or tall enough), return 0
+    if len(grid) < 3 or len(grid[0]) < 3:
+        return 0
+    
+    def unique(row, col):
+    # additional edge case for non-distinct or nums > 9, return 0
+        nums = set()
+        for i in range(3):
+            for j in range(3):
+                if grid[row+i][col+j] in nums or grid[row+i][col+j] > 9 or grid[row+i][col+j] < 1:
+                    return False
+                nums.add(grid[row+i][col+j])
+        return True
+    
+    # check if magical from top left square
+    def magical_grid(row, col):
+        # set value to sum of top row
+        value = grid[row][col] + grid[row][col+1]+ grid[row][col+2]
+        print("value", value)
+        # all horiz
+        for h in range(1,3):
+            if grid[row + h][col]+ grid[row+h][col+1]+ grid[row+h][col+2] != value:
+                return False
+        # all vertical
+        for v in range(3):
+            if grid[row][col+v]+ grid[row+1][col+v]+ grid[row+2][col+v] != value:
+                return False
+        # diagonal 1
+        if grid[row][col]+ grid[row+1][col+1]+ grid[row+2][col+2] != value:
+            return False
+        # diagonal 2
+        if grid[row][col+2]+ grid[row+1][col+1]+ grid[row+2][col] != value:
+            return False
+        return True
+    
+    # loop through top left of possible squares, check unique, count up magical squares
+    count = 0
+    for i in range(len(grid)-2):
+        for j in range(len(grid[0])-2):
+            if unique(i,j) and magical_grid(i,j):
+                count += 1
+
+    return count
 #########  ##############
 #########  ##############
 #########  ##############

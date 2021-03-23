@@ -1066,21 +1066,22 @@ def dailyTemperatures(self, T: List[int]) -> List[int]:
                 
 
 ######### 1. Two Sum ##############
-# brute force
+# recursion
 def twoSum(self, nums: List[int], target: int) -> List[int]:
     """given array of int and target int, return indices of 2 int that sum up to target"""
-    # brute force: find sum for each pair, if num is smaller than target
-    # use 2 pointers
+
+    def dfs(nums, i, j, target):
+        if nums[i] + nums[j] == target:
+            return [i,j]
+        
+        if j == len(nums)-1:
+            return dfs(nums, i+1, i+2, target)
+        
+        return dfs(nums,i, j+1, target)
+        
     
-    # if num < target, find if num-target in array and return that index
-    
-    for i in range(len(nums)):
-        other_num = target - nums[i]
-    
-        if other_num in nums:
-            j = nums.index(other_num)
-            if j != i:
-                return [i, j]
+    return dfs(nums,0,1,target)
+
 
 # hash table
 def twoSum(self, nums: List[int], target: int) -> List[int]:
@@ -1098,6 +1099,22 @@ def twoSum(self, nums: List[int], target: int) -> List[int]:
             # set key of other_num to value of index
             d[target - nums[i]] = i
 
+
+# brute force
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    """given array of int and target int, return indices of 2 int that sum up to target"""
+    # brute force: find sum for each pair, if num is smaller than target
+    # use 2 pointers
+    
+    # if num < target, find if num-target in array and return that index
+    
+    for i in range(len(nums)):
+        other_num = target - nums[i]
+    
+        if other_num in nums:
+            j = nums.index(other_num)
+            if j != i:
+                return [i, j]
 
 ######### 49. Group Anagrams ##############
 def groupAnagrams(self, strs: List[str]) -> List[List[str]]:

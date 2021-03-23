@@ -2481,6 +2481,40 @@ def isCousins(root, x, y):
 
 
 ######### 54. Spiral Matrix ##############
+# using zip
+def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+    result = []
+    
+    while matrix:
+        result += matrix.pop(0)
+        # rotate matrix
+        matrix = (list(zip(*matrix)))[::-1]
+        print(matrix)
+    
+    return result
+# for beginners who does not know the workings of zip here is explaination:
+
+# l = [1,2,3]
+# l2 = [4,5,6]
+
+# list(zip(l,l2)) = [(1,4),(2,5),(3,6)]
+
+# For * (Star expression) = unpacking
+# def add(a,b):
+# 	return a+b
+# l = (2,3)
+# print(add(*l))
+# It basically unpacks the tuple and puts them as positional arguments in the function call.
+
+# 1 2 3
+# 4 5 6
+# 7 8 9
+
+# [(4,7) (5,8) (6,9)]
+# 69 58 47
+# 54 87 = 87 54
+
+# using direction boolean
 def spiralOrder(matrix) :
     """print matrix in spiral order
     >>> spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
@@ -3032,43 +3066,6 @@ def containsDuplicate(nums):
         return False
     return True
 
-
-######### 54. Spiral Matrix ##############
-    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        result = []
-        
-        while matrix:
-            result += matrix.pop(0)
-            # rotate matrix
-            matrix = (list(zip(*matrix)))[::-1]
-            print(matrix)
-        
-        return result
-# for beginners who does not know the workings of zip here is explaination:
-
-# l = [1,2,3]
-# l2 = [4,5,6]
-
-# print(list(zip(l,l2)))
-
-# #it will print [(1,4),(2,5),(3,6)]
-
-# For * (Star expression) = unpacking
-
-
-# def add(a,b):
-# 	return a+b
-# l = (2,3)
-# print(add(*l))
-# It basically unpacks the tuple and puts them as positional arguments in the function call.
-
-# 1 2 3
-# 4 5 6
-# 7 8 9
-
-# [(4,7) (5,8) (6,9)]
-# 69 58 47
-# 54 87 = 87 54
 
 ######### 1290. Convert Binary Number in a Linked List to Integer ##############
 def getDecimalValue(self, head: ListNode) -> int:
@@ -3774,6 +3771,33 @@ def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
                 col -= 1
     
     return ans
+
+
+######### 118. Pascal's Triangle ##############
+def generate(self, numRows: int) -> List[List[int]]:
+    # base cases
+    if numRows == 0:
+        return []
+    if numRows == 1:
+        return [[1]]
+    
+    # otherwise, add up numbers of previous row
+    res = [[1]]
+    for i in range(1, numRows):
+        # start each row with 1
+        row = [1]
+        # add the sum of the previous row (above and above-left) to it
+        for j in range(1,i):
+            row.append(res[i-1][j-1] + res[i-1][j]) 
+        row.append(1)
+        res.append(row)
+        
+    return res
+
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
 #########  ##############
 #########  ##############
 #########  ##############

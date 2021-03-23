@@ -3739,7 +3739,42 @@ def fizzBuzz(self, n: int) -> List[str]:
     return ans
 
 
-#########  ##############
+######### 498. Diagonal Traverse ##############
+def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
+
+    # turning
+
+    ans = []
+    m, n = len(matrix), len(matrix[0])
+    row = col = 0
+    
+    for cell in range(m*n):
+        print("row", row, "col", col)
+        ans.append(matrix[row][col])
+        # up = even sum
+        if (row + col) % 2 == 0:
+            # reach right col -> move down
+            if col == n - 1:
+                row += 1
+            # reach top row -> move R
+            elif row == 0:
+                col += 1
+            else:
+                row -= 1
+                col += 1
+        # down = odd sum        
+        else:
+            # reach bottom row -> move R
+            if row == m - 1:
+                col += 1
+            # reach left col -> move down
+            elif col == 0:
+                row += 1
+            else:
+                row += 1
+                col -= 1
+    
+    return ans
 #########  ##############
 #########  ##############
 #########  ##############

@@ -3859,7 +3859,20 @@ def strStr(self, haystack: str, needle: str) -> int:
     return -1
 
 
-#########  ##############
+######### 14. Longest Common Prefix ##############
+def longestCommonPrefix(self, strs: List[str]) -> str:
+    res = ''
+    if not strs:
+        return res
+    strs.sort(key=len) # equivalent strs.sort(key=lambda x: len(x))
+    
+    # pick shortest string (will be the longest prefix possible)
+    for i, char in enumerate(strs[0]):
+        for s in strs[1:]:
+            if s[i] != char:
+                return strs[0][:i]
+        
+    return strs[0]
 #########  ##############
 #########  ##############
 #########  ##############

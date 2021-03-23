@@ -3786,11 +3786,12 @@ def generate(self, numRows: int) -> List[List[int]]:
             return []
         if num == 1:
             return [[1]]
-
+        # each row starts with 1
         row = [1]
         prev = helper(num-1)
         for i in range(len(prev)-1):
             row.append(prev[i] + prev[i+1])
+        # each row ends with 1
         row.append(1)
         
         return row
@@ -3800,6 +3801,7 @@ def generate(self, numRows: int) -> List[List[int]]:
         tri.append(row)
     
     return tri
+
 # iterativeley (ex of dp)
 def generate(self, numRows: int) -> List[List[int]]:
     # base cases

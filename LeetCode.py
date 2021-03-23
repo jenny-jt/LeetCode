@@ -3774,6 +3774,33 @@ def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
 
 
 ######### 118. Pascal's Triangle ##############
+# using recursion helper
+def generate(self, numRows: int) -> List[List[int]]:
+    tri = [[1]]
+    if numRows == 1:
+        return tri
+    # helper to generate row for each level
+    def helper(num):
+        # base cases
+        if num == 0:
+            return []
+        if num == 1:
+            return [[1]]
+
+        row = [1]
+        prev = helper(num-1)
+        for i in range(len(prev)-1):
+            row.append(prev[i] + prev[i+1])
+        row.append(1)
+        
+        return row
+    
+    for num in range(2, numRows+1):
+        row = helper(num)
+        tri.append(row)
+    
+    return tri
+# iterativeley (ex of dp)
 def generate(self, numRows: int) -> List[List[int]]:
     # base cases
     if numRows == 0:

@@ -1066,27 +1066,37 @@ def dailyTemperatures(self, T: List[int]) -> List[int]:
                 
 
 ######### 1. Two Sum ##############
+# hash table, second attempt
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+    """given array of int and target int, return indices of 2 int that sum up to target"""
+    d = {}
+    # make dictionary of key(target-num)-value(i)
+    for i, num in enumerate(nums):
+        # if num in d, that means that there was already a num that equals target-num, return that index and this one
+        if num in d:
+            return d[num], i
+        # if not in d, set value
+        d[target-num] = i
+
 # recursion
 def twoSum(self, nums: List[int], target: int) -> List[int]:
     """given array of int and target int, return indices of 2 int that sum up to target"""
-
     def dfs(nums, i, j, target):
+        # base case
         if nums[i] + nums[j] == target:
             return [i,j]
-        
+        # last index for j, increment i and j and call dfs again
         if j == len(nums)-1:
             return dfs(nums, i+1, i+2, target)
-        
+        # increment j and check
         return dfs(nums,i, j+1, target)
         
-    
     return dfs(nums,0,1,target)
+        
 
-
-# hash table
+# hash table, first attempt
 def twoSum(self, nums: List[int], target: int) -> List[int]:
     """given array of int and target int, return indices of 2 int that sum up to target"""
-    # hash table
     
     d = {}
     
@@ -3913,7 +3923,7 @@ def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
     def magical_grid(row, col):
         # set value to sum of top row
         value = grid[row][col] + grid[row][col+1]+ grid[row][col+2]
-        print("value", value)
+        # print("value", value)
         # all horiz
         for h in range(1,3):
             if grid[row + h][col]+ grid[row+h][col+1]+ grid[row+h][col+2] != value:
@@ -3932,12 +3942,14 @@ def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
     
     # loop through top left of possible squares, check unique, count up magical squares
     count = 0
-    for i in range(len(grid)-2):
-        for j in range(len(grid[0])-2):
+    for i in range(len(grid)-2):  # rows
+        for j in range(len(grid[0])-2):  # columns
             if unique(i,j) and magical_grid(i,j):
                 count += 1
 
     return count
+
+
 ######### 290. Word Pattern ##############
 def wordPattern(self, pattern: str, s: str) -> bool:
     list_s = s.split(" ")
@@ -3955,7 +3967,33 @@ def wordPattern(self, pattern: str, s: str) -> bool:
         if d_chars[char] != word:
             return False
     return True
-#########  ##############
+
+######### 500. Keyboard Row ##############
+def findWords(self, words: List[str]) -> List[str]:
+    # pick the row that contains the first letter 
+    d = {1:"qwertyuiop", 2:"asdfghjkl", 3:"zxcvbnm"}
+    ans = []
+    keyboard_row = 0
+    
+    # loop through all letters of word and return false if not in that row
+    for word in words:
+        all_in = True
+
+        # find keyboard row for that word
+        for row in d.keys():
+            # check first letter in word
+            if word[0].lower() in d[row]:
+                keyboard_row = row
+                break
+        for char in word[1:]:
+            if char.lower() not in d[keyboard_row]:
+                all_in = False
+        if all_in:
+            ans.append(word)
+            
+    return ans
+
+
 #########  ##############
 #########  ##############
 #########  ##############

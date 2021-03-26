@@ -3999,7 +3999,21 @@ def arrayPairSum(self, nums: List[int]) -> int:
     nums.sort()
     return sum(nums[::2])
 
-#########  ##############
+
+######### 67. Two Sum II - Input array is sorted ##############
+def twoSum(self, numbers: List[int], target: int) -> List[int]:
+    d = {}
+    
+    # store key (target-num)- value (index of num + 1)
+    for i, num in enumerate(numbers):
+        d[target-num] = i + 1
+        
+    # second pass: loop through keys and find num as key, if found, return curr idx and d[num]
+    for i, num in enumerate(numbers):
+        if d.get(num, 0):
+            return [i+1, d[num]]
+
+
 #########  ##############
 #########  ##############
 #########  ##############

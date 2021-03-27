@@ -4029,7 +4029,38 @@ def isUgly(self, n: int) -> bool:
 
     return True
 
-#########  ##############
+######### 264. Ugly Number II ##############
+def nthUglyNumber(self, n: int) -> int:
+    
+    dp = [None] * (n+1)
+    dp[0] = 0
+    dp[1] = 1
+    
+    def isUgly(n):
+        while n > 1:
+            if n % 2 == 0:
+                n /= 2
+            elif n % 3 == 0:
+                n /= 3
+            elif n % 5 == 0:
+                n /= 5
+            else:
+                return False
+
+        return True
+    
+    for i in range(2, n+1):
+        # print("i", i)
+        x = dp[i-1] + 1
+        while not dp[i]:
+            if isUgly(x):
+                dp[i] = x
+            else:
+                x += 1
+                # print("x", x)
+    return dp[n]
+    
+
 #########  ##############
 #########  ##############
 #########  ##############

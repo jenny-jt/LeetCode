@@ -4091,7 +4091,17 @@ def lastStoneWeight(self, stones: List[int]) -> int:
     return 0
 
 
-#########  ##############
+######### 485. Max Consecutive Ones ##############
+def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+    j, max_ = 0, 0
+    for i in range(len(nums)):
+        if nums[i] != 1:
+            j = i + 1
+        max_ = max(max_, i-j + 1)
+    
+    return max_
+
+
 #########  ##############
 #########  ##############
 #########  ##############

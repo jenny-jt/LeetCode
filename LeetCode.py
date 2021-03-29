@@ -4030,6 +4030,11 @@ def isUgly(self, n: int) -> bool:
     return True
 
 ######### 264. Ugly Number II ##############
+
+
+
+
+# dp too slow
 def nthUglyNumber(self, n: int) -> int:
     
     dp = [None] * (n+1)
@@ -4061,7 +4066,31 @@ def nthUglyNumber(self, n: int) -> int:
     return dp[n]
     
 
-#########  ##############
+######### 1046. Last Stone Weight ##############
+import heapq
+
+def lastStoneWeight(self, stones: List[int]) -> int:
+    neg_stones = [-x for x in stones]
+    heapq.heapify(neg_stones)
+
+    while len(neg_stones) >= 2:
+        # 2 largest items
+        heavies = heapq.nsmallest(2, neg_stones)
+        # take off 2 heaviest
+        heapq.heappop(neg_stones)
+        heapq.heappop(neg_stones)
+        # if diff, return back residual
+        if heavies[0] != heavies[1]:
+            final_weight = - abs(heavies[0] - heavies[1])
+            # print(final_weight)
+            # replace final_weight
+            heapq.heappush(neg_stones, final_weight)
+    
+    if neg_stones:
+        return -neg_stones[0]
+    return 0
+
+
 #########  ##############
 #########  ##############
 #########  ##############

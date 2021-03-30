@@ -4122,6 +4122,47 @@ def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         sum_ -= nums[i]
     
     return min_ if min_ != float('inf') else 0
+
+
+######### 703. Kth Largest Element in a Stream ##############
+import heapq
+
+class KthLargest:
+
+    def __init__(self, k: int, nums: List[int]):
+        self.k = k
+        # array of k largest
+        nums = heapq.nlargest(k, nums)
+        # make it a heap
+        heapq.heapify(nums)
+        self.heap = nums
+
+    def add(self, val: int) -> int:
+        if len(self.heap) < self.k:
+            heapq.heappush(self.heap, val)
+        elif val > self.heap[0]:
+            heapq.heapreplace(self.heap, val)
+        return self.heap[0]
+
+
+######### 771. Jewels and Stones ##############
+def numJewelsInStones(self, jewels: str, stones: str) -> int:
+    j_dict = defaultdict(int)
+    s_dict = defaultdict(int)
+    
+    ans = 0
+    for i in range(len(jewels)):
+        j_dict[jewels[i]] += 1
+    for i in range(len(stones)):
+        s_dict[stones[i]] += 1
+    for char in s_dict.keys():
+        if char in j_dict:
+            ans += s_dict[char]
+    return ans
+
+#########  ##############
+#########  ##############
+#########  ##############
 #########  ##############
 #########  ##############
 #########  ##############

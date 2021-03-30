@@ -4170,7 +4170,51 @@ def numJewelsInStones(self, jewels: str, stones: str) -> int:
     return ans
 
 
-#########  ##############
+######### 1529. Bulb Switcher IV ##############
+# using modulo, faster
+def minFlips(self, target: str) -> int:
+        flips = 0
+
+        for i in range(len(target)):
+            if flips % 2 == 0:
+                current = "0"
+            else:
+                current = "1" 
+            if current != target[i]:
+                flips += 1
+
+        return flips
+
+
+# using boolean
+def minFlips(self, target: str) -> int:
+    # edge case of all 0s, return 0
+    if int(target) == 0:
+        return 0
+    
+    flips = 0
+    on = False
+
+    if target[0] != "0":
+        flips += 1
+        on = True
+
+    for i in range(1, len(target)):
+        # if on, and target[i] != 1, then need to flip
+        if on:
+            if target[i] != "1":
+                flips += 1
+                on = False
+        else:
+        # if not on and target[i] == 1, then need to flip
+            if target[i] == "1":
+                flips += 1
+                on = True
+
+    return flips
+
+
+        
 #########  ##############
 #########  ##############
 #########  ##############

@@ -4146,6 +4146,15 @@ class KthLargest:
 
 
 ######### 771. Jewels and Stones ##############
+# using set
+def numJewelsInStones(self, jewels: str, stones: str) -> int:
+    ans = 0
+    for char in stones:
+        if char in set(jewels):
+            ans += 1
+    return ans
+
+# using dict, slow
 def numJewelsInStones(self, jewels: str, stones: str) -> int:
     j_dict = defaultdict(int)
     s_dict = defaultdict(int)
@@ -4159,6 +4168,7 @@ def numJewelsInStones(self, jewels: str, stones: str) -> int:
         if char in j_dict:
             ans += s_dict[char]
     return ans
+
 
 #########  ##############
 #########  ##############

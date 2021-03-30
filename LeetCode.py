@@ -4102,7 +4102,26 @@ def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
     return max_
 
 
-#########  ##############
+######### 209. Minimum Size Subarray Sum ##############
+def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+    n = len(nums)
+    
+    # target > sum(nums) -> 0
+    if target > sum(nums) or not nums:
+        return 0
+    
+    j, sum_ = 0, 0
+    min_ = float('inf')
+    
+    for i in range(n):
+        while j < n and sum_ < target:
+            sum_ += nums[j]
+            j += 1
+        if sum_ >= target:
+            min_ = min(min_, j-i)
+        sum_ -= nums[i]
+    
+    return min_ if min_ != float('inf') else 0
 #########  ##############
 #########  ##############
 #########  ##############

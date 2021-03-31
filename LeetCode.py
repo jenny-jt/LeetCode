@@ -4215,7 +4215,22 @@ def minFlips(self, target: str) -> int:
 
 
         
-#########  ##############
+######### 1507. Reformat Date ##############
+from datetime import datetime
+
+def reformatDate(self, date: str) -> str:
+    # split string 
+    day, month, year = date.split()
+    
+    # slice string
+    day = day[:len(day)-2]
+    
+    date_string = day + " " + month + " " + year
+
+    date = datetime.strptime(date_string, "%d %b %Y")
+    return date.strftime("%Y-%m-%d")
+
+
 #########  ##############
 #########  ##############
 #########  ##############

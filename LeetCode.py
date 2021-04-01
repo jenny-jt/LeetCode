@@ -4030,8 +4030,29 @@ def isUgly(self, n: int) -> bool:
     return True
 
 ######### 264. Ugly Number II ##############
+# dp, faster
+def nthUglyNumber(self, n: int) -> int:
+    dp = [1]
+    
+    i, j, k = 0, 0, 0
+    
+    while len(dp) < n+1:
+        # print("i", i, "j", j, "k", k)
+        a, b, c = dp[i] * 2, dp[j] * 3, dp[k] * 5
+        
+        chosen = min(a,b,c)
+        
+        if chosen != dp[-1]:
+            dp.append(chosen)
+        if chosen == a:
+            i += 1
+        elif chosen == b:
+            j += 1
+        elif chosen == c:
+            k += 1
 
-
+    # print(dp)    
+    return dp[n-1]
 
 
 # dp too slow
@@ -4231,12 +4252,34 @@ def reformatDate(self, date: str) -> str:
     return date.strftime("%Y-%m-%d")
 
 
+######### 1360. Number of Days Between Two Dates ##############
+from datetime import datetime
+
+def daysBetweenDates(self, date1: str, date2: str) -> int:
+    start_date = datetime.strptime(date1, "%Y-%m-%d")
+    end_date = datetime.strptime(date2, "%Y-%m-%d")
+    
+    delta = abs(end_date-start_date)
+    
+    return delta.days
+
+
 #########  ##############
 #########  ##############
 #########  ##############
 #########  ##############
 #########  ##############
 #########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+
 
 # if __name__ == '__main__':
 import doctestxs

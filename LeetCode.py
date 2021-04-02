@@ -4235,7 +4235,6 @@ def minFlips(self, target: str) -> int:
     return flips
 
 
-        
 ######### 1507. Reformat Date ##############
 from datetime import datetime
 
@@ -4264,7 +4263,16 @@ def daysBetweenDates(self, date1: str, date2: str) -> int:
     return delta.days
 
 
-#########  ##############
+######### 215. Kth Largest Element in an Array ##############
+import heapq as h
+
+def findKthLargest(self, nums: List[int], k: int) -> int:
+    # kth largest
+    # min heap of k size, insert if larger than top  
+    heap = h.nlargest(k, nums)
+    return heap[-1]
+
+        
 #########  ##############
 #########  ##############
 #########  ##############

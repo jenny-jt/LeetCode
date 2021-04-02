@@ -4264,6 +4264,7 @@ def daysBetweenDates(self, date1: str, date2: str) -> int:
 
 
 ######### 215. Kth Largest Element in an Array ##############
+# using minheap
 import heapq as h
 
 def findKthLargest(self, nums: List[int], k: int) -> int:
@@ -4272,9 +4273,80 @@ def findKthLargest(self, nums: List[int], k: int) -> int:
     heap = h.nlargest(k, nums)
     return heap[-1]
 
+# using sort, similar run time
+def findKthLargest(self, nums: List[int], k: int) -> int:
+    # kth largest
+    # min heap of k size, insert if larger than top  
+    nums.sort()
+    return nums[-k]
+    
+#########  ##############
+# 2 pointers
+def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+
+    ans, l = 0, 0
+    prod = 1
+    
+    for r in range(len(nums)):
+        prod *= nums[r]
         
-#########  ##############
-#########  ##############
+        while prod >= k and l <= r:
+            prod /= nums[l]
+            l += 1
+        
+        ans += r-l+1
+        
+    return ans
+
+# brute force, too slow
+import math as m
+
+def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+
+    ans, j = 0, 0
+    
+    if not nums:
+        return ans
+    
+    for i in range(len(nums)):
+        # print("i", nums[i], "j", nums[j])
+        while m.prod(nums[i:j+1]) < k and j < len(nums): 
+            # print(nums[i:j+1])
+            ans += 1
+            j += 1
+        j = i+1
+    
+    return ans
+
+
+######### 1638. Count Substrings That Differ by One Character ##############
+def countSubstrings(self, s: str, t: str) -> int:
+    ans = 0
+    # s and t same, return 0
+    if s == t:
+        return ans
+    
+# 2 pointers to generate all substrings for s and t
+# sort by length; key-length, value-array of substrings
+# loop through each substring of certain length in s, compare to substrings of same length in t
+# if diff by 1 only, increment count
+
+    for i in range(len(s)):
+        for j in range(len(t)):
+            # print("i", i, "j", j)
+            x, y, d = i, j, 0
+            while x < len(s) and y < len(t):
+                if s[x] != t[y]:
+                    d += 1
+                if d == 1:
+                    ans += 1
+                elif d > 1:
+                    break
+                x += 1
+                y += 1
+    return ans
+
+
 #########  ##############
 #########  ##############
 #########  ##############

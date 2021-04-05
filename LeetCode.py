@@ -4466,7 +4466,37 @@ def bstToGst(self, root: TreeNode) -> TreeNode:
     return root
 
 
-#########  ##############
+######### 637. Average of Levels in Binary Tree ##############
+def averageOfLevels(self, root: TreeNode) -> List[float]:
+    """given root of BT, return array of avg value of all nodes on each level"""
+    res = []
+    if not root:
+        return res
+    # BFS
+    q = [root]
+    q = deque(q)
+    # print(q)
+    # for each layer, start an array. add all node vals. divide by num nodes. append to res
+    while q:
+        count = len(q)
+        level = []
+        sum_level, nodes = 0, 0
+        while count:
+            pop = q.popleft()
+            # print("popped",q)
+            count -= 1
+            nodes += 1
+            sum_level += pop.val
+            if pop.left:
+                level.append(pop.left)
+            if pop.right:
+                level.append(pop.right)
+
+        avg_level = sum_level / nodes
+        res.append(avg_level)
+        q = deque(level)
+    return res
+        
 #########  ##############
 #########  ##############
 #########  ##############

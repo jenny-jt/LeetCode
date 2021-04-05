@@ -4348,6 +4348,39 @@ def countSubstrings(self, s: str, t: str) -> int:
 
 
 ######### 173. Binary Search Tree Iterator ##############
+# using a stack O(h) memory because only store half of the nodes of a binary tree
+class BSTIterator:
+
+    def __init__(self, root: TreeNode):
+        self.root = root
+        self.stack = [root]
+        self.add_L(root)
+        
+    def add_L(self, node):
+        # add all L nodes from curr node to stack
+        # smallest node will end up on top of stack
+        while node.left:
+            self.stack.append(node.left)
+            # print("adding L", self.stack)
+            node = node.left
+
+    def next(self) -> int:
+        while self.stack:
+            pop = self.stack.pop()
+            # if popped node has a right child, add that to stack
+            if pop.right:
+                self.stack.append(pop.right)
+                self.add_L(pop.right)
+            # print("pop", self.stack)
+            return pop.val
+            
+
+    def hasNext(self) -> bool:
+        # node.right > pointer: return True
+        return self.stack
+
+
+# using an array O(n) memory
 class BSTIterator:
 
     def __init__(self, root: TreeNode):

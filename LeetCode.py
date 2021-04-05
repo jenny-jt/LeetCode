@@ -4490,7 +4490,8 @@ def averageOfLevels(self, root: TreeNode) -> List[float]:
         ans.append(sum_/count)
         
     return ans
-        
+
+
 # using BFS
 def averageOfLevels(self, root: TreeNode) -> List[float]:
     """given root of BT, return array of avg value of all nodes on each level"""
@@ -4522,7 +4523,19 @@ def averageOfLevels(self, root: TreeNode) -> List[float]:
         q = deque(level)
     return res
         
-#########  ##############
+######### 653. Two Sum IV - Input is a BST ##############
+def findTarget(self, root: TreeNode, k: int) -> bool:
+    nodes_set = set()
+    # traverse tree, in order
+    def inorder(node):
+        if node:
+            if k-node.val in nodes_set:
+                return True
+            nodes_set.add(node.val)
+            return inorder(node.left) or inorder(node.right)
+    return inorder(root)
+
+
 #########  ##############
 #########  ##############
 #########  ##############

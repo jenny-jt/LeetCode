@@ -4348,7 +4348,7 @@ def countSubstrings(self, s: str, t: str) -> int:
 
 
 ######### 173. Binary Search Tree Iterator ##############
-# using a stack O(h) memory because only store half of the nodes of a binary tree
+# using a stack O(h) memory because only store half of the nodes of a binary tree, faster
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
@@ -4410,7 +4410,22 @@ class BSTIterator:
         if self.pointer != len(self.arr) -1:
             return True
         return False
-#########  ##############
+
+
+######### 94. Binary Tree Inorder Traversal ##############
+def inorderTraversal(self, root: TreeNode) -> List[int]:
+    res = []
+    
+    if not root:
+        return res
+    
+    if root:
+        l = self.inorderTraversal(root.left)
+        res.append(root.val)
+        r = self.inorderTraversal(root.right)
+        return l + res + r
+
+
 #########  ##############
 #########  ##############
 #########  ##############

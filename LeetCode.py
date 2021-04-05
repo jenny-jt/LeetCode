@@ -4426,7 +4426,29 @@ def inorderTraversal(self, root: TreeNode) -> List[int]:
         return l + res + r
 
 
-#########  ##############
+######### 1022. Sum of Root To Leaf Binary Numbers ##############
+def sumRootToLeaf(self, root: TreeNode) -> int:
+    """given root of binary tree, return sum of all numbers from root to that leaf"""
+    paths = []
+    res = 0
+    # dfs to get root to leaf paths
+    def dfs(node, path):
+        if not node:
+            return
+        path += str(node.val)
+        if not node.left and not node.right:
+                paths.append(path)
+        dfs(node.left, path)
+        dfs(node.right, path)
+    
+    dfs(root, '')
+    # convert each path (binary) to int
+    for path in paths:
+        num = int(path, 2)
+        res += num
+    # sum up array of ints
+    return res
+    
 #########  ##############
 #########  ##############
 #########  ##############

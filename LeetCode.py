@@ -4448,8 +4448,24 @@ def sumRootToLeaf(self, root: TreeNode) -> int:
         res += num
     # sum up array of ints
     return res
-    
-#########  ##############
+
+
+######### 1038. Binary Search Tree to Greater Sum Tree ##############
+def bstToGst(self, root: TreeNode) -> TreeNode:
+    # add in right nodes first (use BST property)
+    self.running_sum = 0
+    # traverse tree in reverse in-order
+    def inorder(node):
+        if node:
+            inorder(node.right)
+            self.running_sum += node.val
+            node.val = self.running_sum
+            inorder(node.left)
+    inorder(root)
+    # return root
+    return root
+
+
 #########  ##############
 #########  ##############
 #########  ##############

@@ -4347,7 +4347,36 @@ def countSubstrings(self, s: str, t: str) -> int:
     return ans
 
 
-#########  ##############
+######### 173. Binary Search Tree Iterator ##############
+class BSTIterator:
+
+    def __init__(self, root: TreeNode):
+        self.root = root
+        self.pointer = float('-inf')
+        self.arr = []
+        def inorder(node, arr):
+            if node:
+                inorder(node.left, self.arr)
+                arr.append(node.val)
+                inorder(node.right, self.arr)
+        inorder(self.root, self.arr)
+        
+    def next(self) -> int:
+        """moves pointer to right, returns number at pointer"""
+        # print("arr", self.arr)
+        if self.pointer < 0:
+            self.pointer = 0
+            # print(self.pointer)
+            return self.arr[self.pointer]
+        if self.pointer < len(self.arr):
+            self.pointer += 1
+            return self.arr[self.pointer]
+
+    def hasNext(self) -> bool:
+        # node.right > pointer: return True
+        if self.pointer != len(self.arr) -1:
+            return True
+        return False
 #########  ##############
 #########  ##############
 #########  ##############

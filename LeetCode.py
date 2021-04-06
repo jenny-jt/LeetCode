@@ -4726,7 +4726,23 @@ def findMode(self, root: TreeNode) -> List[int]:
     return d[max_oc]
 
 
-#########  ##############
+######### 1365. How Many Numbers Are Smaller Than the Current Number ##############
+# using sorted array
+def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+    s_nums = sorted(nums)
+    
+    res = [0] * len(nums)
+    
+    for i, num in enumerate(nums):
+        res[i] = s_nums.index(num)
+        
+    return res
+
+# list comprehension, slow
+def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+    return [sorted(nums).index(num) for num in nums]
+
+
 #########  ##############
 #########  ##############
 #########  ##############

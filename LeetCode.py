@@ -4624,8 +4624,44 @@ def findTilt(self, root: TreeNode) -> int:
     l = get_sum(root.left)
     r = get_sum(root.right)
     return abs(l-r) + self.findTilt(root.left) + self.findTilt(root.right)
-            
-#########  ##############
+
+
+######### 671. Second Minimum Node In a Binary Tree ##############
+# recursion
+    def findSecondMinimumValue(self, root: TreeNode) -> int:
+        if not root:
+            return -1
+        min_ = root.val
+        self.ans = float('inf')
+        def traverse(node):
+            if node:
+                if min_ < node.val < self.ans:
+                    self.ans = node.val
+                traverse(node.left)
+                traverse(node.right)
+        traverse(root)
+        if self.ans == float('inf'):
+            return -1
+        return self.ans
+# using set, faster
+    def findSecondMinimumValue(self, root: TreeNode) -> int:
+        n_set = set()
+        def add_nodes(node):
+            if node:
+                n_set.add(node.val)
+                add_nodes(node.left)
+                add_nodes(node.right)
+        add_nodes(root)
+        
+        arr = list(n_set)
+        arr.sort()
+        # print(arr)
+        
+        # check len(arr). if < 2: return -1
+        # otherwise return idx 1 (if input root first) or -2 if add leaf nodes first
+        if len(arr) < 2:
+            return -1
+        return arr[1]
 #########  ##############
 #########  ##############
 #########  ##############

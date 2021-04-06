@@ -4572,6 +4572,32 @@ def getMinimumDifference(self, root: TreeNode) -> int:
     diff = [arr[x+1]-arr[x] for x in range(len(arr)-1)]
     # print(diff)
     return min(diff)
+
+
+######### 100. Same Tree ##############
+def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+    # traverse tree with recursion
+    # base case: if not node and if node1.val != node2.val
+    
+    def dfs(n1, n2):
+        if not n1 and n2 or n1 and not n2:
+            return False
+        if not n1 and not n2:
+            return True
+        if n1.val != n2.val:
+            return False
+        return dfs(n1.left, n2.left) and dfs(n1.right, n2.right)
+        
+    return dfs(p, q)
+
+
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
 #########  ##############
 #########  ##############
 #########  ##############

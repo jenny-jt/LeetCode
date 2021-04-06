@@ -4537,6 +4537,24 @@ def findTarget(self, root: TreeNode, k: int) -> bool:
 
 
 ######### 530. Minimum Absolute Difference in BST ##############
+# recursion only
+def getMinimumDifference(self, root: TreeNode) -> int:
+    high = self.min_diff = float('inf')
+    low = float('-inf')
+    # traverse tree
+    def dfs(node, low, high):
+        if node:
+            # print("low", low, "high", high, node.val)
+            self.min_diff = min(self.min_diff, abs(low-node.val), abs(high-node.val))
+            # print(self.min_diff)
+            dfs(node.left, low, node.val)
+            dfs(node.right, node.val, high)
+    
+    dfs(root, low, high)
+    return self.min_diff
+
+
+# using arr
 def getMinimumDifference(self, root: TreeNode) -> int:
     arr = []
     # traverse tree

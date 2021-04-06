@@ -3576,6 +3576,24 @@ def tree2str(self, t: TreeNode) -> str:
 
 
 ######### 112. Path Sum ##############
+# using array
+def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
+    # traverse tree, append all sums when reach leaf to res
+    res = []
+    def sum_path(node, sum_):
+        """explore all nodes from node, return sum when reach leaf"""
+        if node:
+            if not node.right and not node.left:
+                res.append(node.val + sum_)
+            # if not leaf, add node.val to sum and explore L and R children
+            sum_path(node.left, sum_+node.val)
+            sum_path(node.right, sum_+node.val)
+    sum_path(root, 0)
+    # print(res)
+    # return if targetSum in res
+    return targetSum in res
+
+
 def hasPathSum(self, root: TreeNode, targetSum: int) -> bool:
     if not root:
         return False

@@ -4608,7 +4608,23 @@ def binaryTreePaths(self, root: TreeNode) -> List[str]:
     find_path(root, '')
     return paths
 
-#########  ##############
+
+######### 563. Binary Tree Tilt ##############
+def findTilt(self, root: TreeNode) -> int:
+    res = 0
+    
+    # helper sums up node + all children
+    def get_sum(node):
+        if not node:
+            return 0
+        return node.val + get_sum(node.left) + get_sum(node.right)
+    
+    if not root:
+        return 0
+    l = get_sum(root.left)
+    r = get_sum(root.right)
+    return abs(l-r) + self.findTilt(root.left) + self.findTilt(root.right)
+            
 #########  ##############
 #########  ##############
 #########  ##############

@@ -4580,10 +4580,10 @@ def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
     # base case: if not node and if node1.val != node2.val
     
     def dfs(n1, n2):
-        if not n1 and n2 or n1 and not n2:
-            return False
         if not n1 and not n2:
             return True
+        if not n1 or not n2:
+            return False
         if n1.val != n2.val:
             return False
         return dfs(n1.left, n2.left) and dfs(n1.right, n2.right)
@@ -4591,7 +4591,23 @@ def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
     return dfs(p, q)
 
 
-#########  ##############
+######### 257. Binary Tree Paths ##############
+def binaryTreePaths(self, root: TreeNode) -> List[str]:
+    paths = []
+    
+    def find_path(node, path):
+        if node:
+            find_path(node.left, path + str(node.val) + "->")
+            find_path(node.right, path + str(node.val) + "->")
+        
+            if not node.left and not node.right:
+                path += str(node.val)
+                paths.append(path)
+                return
+        
+    find_path(root, '')
+    return paths
+
 #########  ##############
 #########  ##############
 #########  ##############

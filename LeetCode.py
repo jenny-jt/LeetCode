@@ -4743,7 +4743,19 @@ def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
     return [sorted(nums).index(num) for num in nums]
 
 
-#########  ##############
+######### 1748. Sum of Unique Elements ##############
+def sumOfUnique(self, nums: List[int]) -> int:
+    c = Counter(nums)
+    
+    sum_ = 0
+    
+    for num, val in c.items():
+        if val == 1:
+            sum_ += num
+            
+    return sum_
+
+
 #########  ##############
 #########  ##############
 #########  ##############

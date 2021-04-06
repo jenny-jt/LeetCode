@@ -4643,6 +4643,8 @@ def findTilt(self, root: TreeNode) -> int:
         if self.ans == float('inf'):
             return -1
         return self.ans
+
+
 # using set, faster
     def findSecondMinimumValue(self, root: TreeNode) -> int:
         n_set = set()
@@ -4662,8 +4664,50 @@ def findTilt(self, root: TreeNode) -> int:
         if len(arr) < 2:
             return -1
         return arr[1]
-#########  ##############
-#########  ##############
+
+
+######### 235. Lowest Common Ancestor of a Binary Search Trees ##############
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    # if either p or q == root: return root
+    if root == p or root == q:
+        return root
+    
+    # p and q in r subtree
+    if p.val > root.val and q.val > root.val:
+        return self.lowestCommonAncestor(root.right, p, q)
+    # p and q in l subtree
+    if p.val < root.val and q.val < root.val:
+        return self.lowestCommonAncestor(root.left, p, q)
+    
+    return root
+
+    
+######### 501. Find Mode in Binary Search Tree ##############
+from collections import Counter, defaultdict
+def findMode(self, root: TreeNode) -> List[int]:
+    # add all nodes to an arr
+    arr = []
+    def traverse(node):
+        if node:
+            arr.append(node.val)
+            traverse(node.left)
+            traverse(node.right)
+    
+    traverse(root)
+    # make counter of arr (key-num, value: occurr)
+    c = Counter(arr)
+    # make dict with key- occurr, value: list of nums
+    d = defaultdict(list)
+    
+    for num, ocurr in c.items():
+        d[ocurr].append(num)
+        
+    # find max of keys, return d[key]
+    ocurrences = list(d.keys())
+    max_oc = max(ocurrences)
+    return d[max_oc]
+
+
 #########  ##############
 #########  ##############
 #########  ##############

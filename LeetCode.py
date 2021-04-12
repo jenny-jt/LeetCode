@@ -4756,11 +4756,56 @@ def sumOfUnique(self, nums: List[int]) -> int:
     return sum_
 
 
+######### 1079. Letter Tile Possibilities ##############
+from itertools import permutations 
+
+def numTilePossibilities(self, tiles: str) -> int:
+    # dynamic programming: unique single letters, using those to build more permutations (decrement count when i go through first time, and for any count >= 2, I can make new permutations)
+    
+    # itertools.permutations(list)
+    # l = A, B, AB, AA, AAB
+    res = set()
+    n = len(tiles)
+    if n == 1:
+        return 1
+    
+    for r in range(1, n+1):
+        ans = itertools.permutations(tiles, r)  # all perms incl duplicates
+        perms = list(ans)
+        for obj in perms:
+            res.add(obj)
+
+    return len(res)
 #########  ##############
 #########  ##############
 #########  ##############
 #########  ##############
-#########  ##############
+# Hello! We're going to flatten an associative array (map / dictionary).
+
+# Given the following dictionary:
+
+# {
+#   'a': 5,
+#   'b': 6,
+#   'c': {
+#     'f': 9,
+#     'g': {
+#       'm': 17,
+#       'n': 3
+#     }
+#   }
+# }
+# Let's write a function that will flatten this associative array(map / dictionary) into something like:
+
+# {
+#   'a': 5,
+#   'b': 6,
+#   'c.f': 9,
+#   'c.g.m': 17,
+#   'c.g.n': 3,
+# }
+
+
 
 
 # if __name__ == '__main__':

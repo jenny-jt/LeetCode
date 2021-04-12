@@ -4776,7 +4776,28 @@ def numTilePossibilities(self, tiles: str) -> int:
             res.add(obj)
 
     return len(res)
-#########  ##############
+
+
+######### 1800. Maximum Ascending Subarray Sum ##############
+def maxAscendingSum(self, nums: List[int]) -> int:
+    max_ = 0
+    if len(nums) < 2:
+        return nums[0]
+    
+    for i in range(len(nums)-1):
+        stack = [nums[i]]
+        j = i + 1
+        while j < len(nums):
+            if nums[j] > stack[-1]:
+                stack.append(nums[j])
+                j += 1
+            else:
+                break
+
+        max_ = max(sum(stack), max_)
+    return max_
+
+
 #########  ##############
 #########  ##############
 #########  ##############

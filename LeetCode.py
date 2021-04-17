@@ -4826,6 +4826,18 @@ def isPalindrome(self, head: ListNode) -> bool:
         head = head.next
 
     return True
+# array, slightly faster
+def isPalindrome(self, head: ListNode) -> bool:
+    res = []
+    
+    while head:
+        res.append(head.val)
+        head = head.next
+        
+    if res == res[::-1]:
+        return True
+    return False
+
 
 #########  ##############
 #########  ##############

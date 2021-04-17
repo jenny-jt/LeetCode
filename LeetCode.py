@@ -4798,34 +4798,46 @@ def maxAscendingSum(self, nums: List[int]) -> int:
     return max_
 
 
+######### 234. Palindrome Linked List ##############
+from collections import deque
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+def isPalindrome(self, head: ListNode) -> bool:
+    curr = head
+    l = deque()
+    
+    if not head:
+        return True
+    
+    while curr:
+        l.appendleft(curr.val)
+        curr = curr.next
+    
+    i = 0   
+    while head:
+        if head.val != l[i]:
+            return False
+        i += 1
+        head = head.next
+
+    return True
+
 #########  ##############
 #########  ##############
 #########  ##############
-# Hello! We're going to flatten an associative array (map / dictionary).
-
-# Given the following dictionary:
-
-# {
-#   'a': 5,
-#   'b': 6,
-#   'c': {
-#     'f': 9,
-#     'g': {
-#       'm': 17,
-#       'n': 3
-#     }
-#   }
-# }
-# Let's write a function that will flatten this associative array(map / dictionary) into something like:
-
-# {
-#   'a': 5,
-#   'b': 6,
-#   'c.f': 9,
-#   'c.g.m': 17,
-#   'c.g.n': 3,
-# }
-
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
 
 
 

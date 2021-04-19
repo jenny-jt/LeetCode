@@ -2116,9 +2116,8 @@ def climbStairs(self, n: int) -> int:
 ######### 121. Best Time to Buy and Sell Stock ##############
 def maxProfit(self, prices: List[int]) -> int:
     """return max profit or 0 if no profit"""
+
     # another one pass
-    def maxProfit(self, prices: List[int]) -> int:
-    """return max profit or 0 if no profit"""
     min_price = float('inf')
     max_profit = 0
     
@@ -4851,7 +4850,37 @@ def isPalindrome(self, head: ListNode) -> bool:
     return False
 
 
-#########  ##############
+######### 1387. Sort Integers by The Power Value ##############
+def getKth(self, lo: int, hi: int, k: int) -> int:
+    d = defaultdict(list)
+    
+    def get_power(int_):
+        count = 0
+        while int_ > 1:
+            if int_ % 2 == 0:
+                int_ /= 2
+            else:
+                int_ = 3 * int_ + 1
+            count += 1
+        return count
+
+    for int_ in range(lo, hi + 1):
+        d[get_power(int_)].append(int_)
+    
+    res = []
+    # dictionary: key-power value, val- list of ints
+    # sort keys, if len(d[key]>1: append sorted val)
+    keys = list(d.keys())
+    keys.sort()
+    
+    for key in keys:
+        if len(d[key]) > 1:
+            vals = sorted(d[key])
+            res.extend(vals)
+        else:
+            res.extend(d[key])
+    
+    return res[k-1]
 #########  ##############
 #########  ##############
 #########  ##############

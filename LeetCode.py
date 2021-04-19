@@ -2116,6 +2116,18 @@ def climbStairs(self, n: int) -> int:
 ######### 121. Best Time to Buy and Sell Stock ##############
 def maxProfit(self, prices: List[int]) -> int:
     """return max profit or 0 if no profit"""
+    # another one pass
+    def maxProfit(self, prices: List[int]) -> int:
+    """return max profit or 0 if no profit"""
+    min_price = float('inf')
+    max_profit = 0
+    
+    for x in range(len(prices)):
+        if prices[x] < min_price:
+            min_price = prices[x]
+        max_profit = max(prices[x]-min_price,  max_profit)
+    return max_profit
+
 
     # dp? maximum profit
     l = len(prices)

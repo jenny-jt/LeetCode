@@ -947,7 +947,6 @@ def maxArea(self, height: List[int]) -> int:
     h2 = max(height[0], height[-1])
     max_a = 0
     
-    
     for i in range(1, len(height)-1):
         if height[i] > h1:
             h1 = height[i]
@@ -4914,7 +4913,41 @@ def getKth(self, lo: int, hi: int, k: int) -> int:
             res.extend(d[key])
     
     return res[k-1]
-#########  ##############
+
+
+######### 1472. Design Browser History ##############
+class BrowserHistory:
+
+    def __init__(self, homepage: str):
+        self.homepage = homepage
+        self.current = 0
+        self.history = [homepage]
+
+    def visit(self, url: str) -> None:
+        self.current += 1
+        # slice list
+        self.history = self.history[:self.current]
+        self.history.append(url)
+
+    def back(self, steps: int) -> str:
+        if steps <= self.current:
+            self.current -= steps
+        else:
+            self.current = 0
+        return self.history[self.current]
+
+    def forward(self, steps: int) -> str:
+        # not at end: steps + self.current
+        # at end if steps + self.current >= len(self.history)
+        # at end, return self.history[-1]
+        if steps + self.current >= len(self.history):
+            self.current = len(self.history) -1
+            return self.history[-1]
+        else:
+            self.current += steps
+            return self.history[self.current]
+
+
 #########  ##############
 #########  ##############
 #########  ##############

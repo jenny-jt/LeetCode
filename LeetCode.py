@@ -4974,7 +4974,25 @@ class BrowserHistory:
             return self.history[self.current]
 
 
-#########  ##############
+######### 1688. Count of Matches in Tournament ##############
+def numberOfMatches(self, n: int) -> int:
+    
+    # until n = 1
+    # recursion with base case: n == 1: return matches
+    # 2 parameters (n, matches)
+    
+    def num_matches(n, matches):
+        # base case:
+        if n == 1:
+            return int(matches)
+        if n % 2 == 0:
+            return num_matches(n/2, matches + n/2)
+        else:
+            return num_matches((n-1)/2 + 1, matches + (n-1) / 2)
+    
+    return num_matches(n, 0)
+
+
 #########  ##############
 #########  ##############
 #########  ##############

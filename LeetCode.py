@@ -4994,6 +4994,94 @@ def numberOfMatches(self, n: int) -> int:
 
 
 #########  ##############
+# sorting to get rid of duplicates
+def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    # permutations of candidates that sum up to target
+    res = []
+
+    if not candidates:
+        return res
+    
+    candidates.sort()
+    
+    # target < first candidate: return []
+    if target < candidates[0]:
+        return res
+    
+    # helper function
+    def dfs(combo):  # track combos so far
+        for candidate in candidates: # [2,3,6,7]
+            # sum of candidates < target, keep searching
+
+            # append candidate to new_combo
+            # check sum (greater, equal, less)
+            
+            new_combo = combo + [candidate]
+            
+            if sum(new_combo) > target:
+                return
+
+            if sum(new_combo) == target:
+                sorted_combo = sorted(new_combo)
+                if sorted_combo not in res:
+                    res.append(sorted_combo)
+                return
+
+            dfs(new_combo)
+
+    dfs([])
+
+    return res
+
+
+# using tuples to get rid of duplicates
+def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    # permutations of candidates that sum up to target
+    res = []
+
+    if not candidates:
+        return res
+    
+    candidates.sort()
+    
+    # target < first candidate: return []
+    if target < candidates[0]:
+        return res
+ 
+    # helper function
+    def dfs(combo):  # track combos so far
+        for candidate in candidates: # [2,3,6,7]
+            # sum of candidates < target, keep searching
+
+            # append candidate to new_combo
+            # check sum (greater, equal, less)
+            
+            new_combo = combo + [candidate]
+            
+            if sum(new_combo) > target:
+                return
+
+            if sum(new_combo) == target:
+                sorted_combo = sorted(new_combo)
+                if sorted_combo not in res:
+                    res.append(sorted_combo)
+                return
+
+            dfs(new_combo)
+            
+    dfs([])
+    
+    # prevent duplicates
+    sorted_res = [sorted(x) for x in res]
+    tuples = [tuple(x) for x in sorted_res]
+    t_set = set()
+
+    for t in tuples:
+        t_set.add(t)
+
+    return list(t_set)
+
+
 #########  ##############
 #########  ##############
 #########  ##############

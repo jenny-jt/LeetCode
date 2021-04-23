@@ -3697,6 +3697,32 @@ def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
 
 
 ######### 46. Permutations ##############
+# backtracking
+def permute(self, nums: List[int]) -> List[List[int]]:
+    res = []
+    
+    # base case: nums has one item (only that permutation poss)
+    if len(nums) == 1:
+        return [nums.copy()]
+    
+    # do this for each element of nums
+    for i in range(len(nums)):
+        # remove first item
+        n = nums.pop(0)
+        perms = self.permute(nums)
+
+        # add the first num to end of each of the perms of 2
+        perms = [p + [n] for p in perms]
+        
+        # add perms of 3 to res
+        res.extend(perms)
+        
+        # add popped back onto end of nums
+        nums.append(n)
+
+    return res
+
+
 def permute(self, nums: List[int]) -> List[List[int]]:
     if not nums:
         return []

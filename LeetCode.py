@@ -5166,7 +5166,27 @@ def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]
     dfs([], 0)
     
     return res
-#########  ##############
+
+
+######### 90. Subsets II ##############
+def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+    res = [[]]
+    
+    if not nums:
+        return res
+    
+    nums.sort()
+    
+    def dfs(path, i):
+        for i in range(i, len(nums)):
+            new_path = path + [nums[i]]
+            if sorted(new_path) not in res:
+                res.append(sorted(new_path))
+            dfs(new_path, i+1)
+            
+    dfs([],0)
+    
+    return res
 #########  ##############
 #########  ##############
 #########  ##############

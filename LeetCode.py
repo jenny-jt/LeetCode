@@ -5116,7 +5116,34 @@ def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
     return list(t_set)
 
 
-#########  ##############
+######### 40. Combination Sum II ##############
+def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+    res = []
+    candidates.sort()
+    # print(candidates) #[1, 1, 2, 5, 6, 7, 10]
+    if target < candidates[0] or sum(candidates) < target:
+        return res
+        
+    def dfs(path, i):
+        for i in range(i, len(candidates)):
+            # make new path
+            new_path = path + [candidates[i]]
+            print(new_path)
+            # sum up path
+            path_sum = sum(new_path)
+            # check if sum >= target
+            if path_sum > target:
+                return
+            if path_sum == target:
+                if sorted(new_path) not in res:
+                    res.append(sorted(new_path))
+                return
+            # if not, then check rest of list
+            dfs(new_path, i+1)
+
+    dfs([], 0)
+    
+    return res
 #########  ##############
 #########  ##############
 #########  ##############

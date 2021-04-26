@@ -1362,6 +1362,28 @@ def subsets(self, nums: List[int]) -> List[List[int]]:
     return [[nums[0]] + seq for seq in others] + others
 
 
+# recursion, backtracking
+def subsets(self, nums: List[int]) -> List[List[int]]:
+    """given array of int, return set of all possible subsets"""
+    res = [[]]
+    
+    if not nums:
+        return res
+    
+    def dfs(combo, i):
+        for i in range(i, len(nums)):
+            new_combo = combo + [nums[i]]
+            # print(new_combo)
+            if new_combo not in res:
+                res.append(new_combo)
+                # print(res)
+            # add additional nums
+            dfs(new_combo, i+1)
+            
+    dfs([], 0)
+    
+    return res
+
 ######### 62. Unique Paths ##############
 # helper function
 def uniquePaths(self, m: int, n: int) -> int:

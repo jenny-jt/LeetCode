@@ -5033,6 +5033,40 @@ def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
 
     return res
 
+# using index in for loop
+def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    # permutations of candidates that sum up to target
+    res = []
+
+    if not candidates:
+        return res
+    
+    candidates.sort()
+    
+    # target < first candidate: return []
+    if target < candidates[0]:
+        return res
+    
+    # helper function
+    def dfs(path, idx):
+        for i in range(idx, len(candidates)):
+            # append candidate to path and check running_sum
+            new_path = path + [candidates[idx]]
+            print(new_path)
+            path_sum = sum(new_path)
+
+            if path_sum > target:
+                return
+            if path_sum == target:
+                res.append(new_path)
+                print(res)
+                return
+
+            dfs(new_path, i+1)
+
+    dfs([], 0)
+
+    return res
 
 # using tuples to get rid of duplicates
 def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:

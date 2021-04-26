@@ -3719,6 +3719,32 @@ def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
 
 
 ######### 46. Permutations ##############
+# backtracking # 2
+def permute(self, nums: List[int]) -> List[List[int]]:
+    res = []
+    if not nums:
+        return res
+    
+    if len(nums) == 1:
+        res.append(nums)
+        return res
+    
+    def dfs(combo, nums):
+        if not nums:
+            res.append(combo)
+            return
+        
+        for num in nums:
+            new_combo = combo + [num]
+            # print(new_combo)
+
+            new_nums = [x for x in nums if x != num]
+        
+            dfs(new_combo, new_nums)
+    
+    dfs([], nums)
+    
+    return res
 # backtracking
 def permute(self, nums: List[int]) -> List[List[int]]:
     res = []
@@ -5187,6 +5213,8 @@ def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
     dfs([],0)
     
     return res
+
+
 #########  ##############
 #########  ##############
 #########  ##############

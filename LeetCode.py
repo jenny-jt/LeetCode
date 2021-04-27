@@ -5215,7 +5215,20 @@ def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
     return res
 
 
-#########  ##############
+######### 1002. Find Common Characters ##############
+from collections import Counter
+
+def commonChars(self, A: List[str]) -> List[str]:
+    # make counter of first word
+    first = Counter(A[0])
+    # loop through rest of A, compare counter[char] values and take min
+    for word in A[1:len(A)]:
+        first = first & Counter(word)
+    
+    counts = list(first.elements())
+    # use .elements() to create list of elements with multiple values
+    
+    return counts
 #########  ##############
 #########  ##############
 #########  ##############

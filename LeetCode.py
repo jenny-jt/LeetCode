@@ -5229,7 +5229,49 @@ def commonChars(self, A: List[str]) -> List[str]:
     # use .elements() to create list of elements with multiple values
     
     return counts
-#########  ##############
+
+
+######### 767. Reorganize String ##############
+def reorganizeString(self, S: str) -> str:
+    # how would it not be possible? if more than half are same if even, and if more than half + 1 if odd
+    # make counter. find largest value and check if more than half
+    n = len(S)
+    c = Counter(S)
+    
+    # alt: make heap
+    heap = [(-count, char) for char, count in c.items()]
+    # print(heap)
+    hq.heapify(heap)
+    
+    max_occ = None
+    letters = []
+    res = [""] * n
+    
+    i = 0
+    # pop off from heapq
+    while heap:
+        # check occurr of most common char
+        if not max_occ:
+            max_occ = - heap[0][0]
+            if max_occ > (n+1)//2:
+                return ''
+        
+        neg_count, char = hq.heappop(heap)
+        # print("char", char, "neg count", neg_count)
+        count = -neg_count
+        letters.extend([char]*count)
+        
+    # must be sorted with least frequent first. place the most freq char (in second half of sorted list) first
+    letters = letters[::-1]
+    
+    # more even indices so that one must be the one that has more letters (inclusive n//2)
+    res[::2], res[1::2] = letters[n//2:], letters[:n//2]
+    
+    # print(res[::2], res[1::2])
+    # print(res)
+    return ''.join(res)
+
+
 #########  ##############
 #########  ##############
 #########  ##############

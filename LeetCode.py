@@ -5233,7 +5233,6 @@ def commonChars(self, A: List[str]) -> List[str]:
 
 ######### 767. Reorganize String ##############
 def reorganizeString(self, S: str) -> str:
-    # how would it not be possible? if more than half are same if even, and if more than half + 1 if odd
     # make counter. find largest value and check if more than half
     n = len(S)
     c = Counter(S)
@@ -5272,10 +5271,32 @@ def reorganizeString(self, S: str) -> str:
     return ''.join(res)
 
 
-#########  ##############
-#########  ##############
-#########  ##############
+######### 373. Find K Pairs with Smallest Sums ##############
+# using double for loop and sorting
+def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+    res = []
+    for n in nums1:
+        for m in nums2:
+            res.append([n, m])
+    
+    res.sort(key=sum)
+    
+    return res[:k]
 
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
+#########  ##############
 
 
 # if __name__ == '__main__':

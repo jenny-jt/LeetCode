@@ -5283,6 +5283,26 @@ def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[Lis
     
     return res[:k]
 
+# using heap, slower actually
+import heapq as hq
+
+def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+    # make each a heap (min heap) with a tuple(-sum, l1, l2)
+    heap = []
+    hq.heapify(heap)
+    
+    for n in nums1:
+        for m in nums2:
+            hq.heappush(heap, [n+m, n, m])
+            
+    # find k smallest in terms of sum: time complexity? log(n)?
+    smallest = hq.nsmallest(k, heap)
+    
+    # return list of nums
+    ans = [x[1:] for x in smallest]
+    
+    return ans
+
 #########  ##############
 #########  ##############
 #########  ##############

@@ -5303,7 +5303,33 @@ def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[Lis
     
     return ans
 
-#########  ##############
+
+######### 61. Rotate List ##############
+def rotateRight(self, head: ListNode, k: int) -> ListNode:
+    # use an array and modulo. res = arr[-k:] + arr[:k+1]
+    walk = slow = fast = head
+    length = 0
+    
+    # can walk down and find length
+    while walk:
+        length += 1
+        walk = walk.next
+    # modulo k by length
+    k = k % length
+    # fast pointer to go forward by k (end up k from back)
+    for i in range(k):
+        fast = fast.next
+    
+    # walk forward slow node and set new_head to slow.next
+    while fast.next:
+        fast = fast.next
+        slow = slow.next
+    
+    new = slow.next
+    slow.next = None  # prevent cycle. will stop right before new
+    fast.next = head  # append head
+    
+    return new
 #########  ##############
 #########  ##############
 #########  ##############

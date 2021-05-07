@@ -5330,7 +5330,44 @@ def rotateRight(self, head: ListNode, k: int) -> ListNode:
     fast.next = head  # append head
     
     return new
+
+
 #########  ##############
+from collections import defaultdict
+
+def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+    graph = defaultdict(set)
+    res = []
+    
+    for v1, v2 in connections:
+        graph[v1].add(v2)
+        graph[v2].add(v1)
+    
+    lows = [-1] * n
+    
+    def dfs(v, level, parent):
+        # check if visited vertex before, update state/level
+        if lows[v] == -1:
+            lows[v] = level  # lows[0] = 1, lows[2] = 3
+            # explore each vertex neighbors, vertex inherits lows from neighbors, only check neighbors that are not parent (otherwise infinite loop)
+            for n in graph[v]:
+                if n != parent:
+                    # compare expected discovery and actual low
+                    expected = level+1
+                    actual = dfs(n, expected, v)
+
+                    # critical if expected <= actual
+                    if expected <= actual:
+                        res.append([n,v])
+        
+                    # make sure lows[n] is the lowest val 
+                    # since vertex is connected to child, low val is self vs child
+                    lows[v] = min(lows[v], actual)
+
+        return lows[v]
+    
+    dfs(0,1, -1)
+    return res
 #########  ##############
 #########  ##############
 #########  ##############
